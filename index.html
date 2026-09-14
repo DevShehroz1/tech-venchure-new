@@ -256,17 +256,21 @@
   var circle = document.getElementById('circleHero');
   if (circle) {
     var cur = {rx:60,ry:26,rz:0,ty:-10}, tgt = {rx:60,ry:26,rz:0,ty:-10};
-    document.addEventListener('mousemove', function(e) {
-      var t = e.clientY / window.innerHeight;
-      tgt.rx = 55 + t*10; tgt.ry = 21 + t*10; tgt.rz = -60 + t*120; tgt.ty = 40 - t*100;
-    });
+    var rafId = null;
     function lerp(a,b,f){return a+(b-a)*f;}
-    (function tick(){
+    function tick(){
       cur.rx=lerp(cur.rx,tgt.rx,.04); cur.ry=lerp(cur.ry,tgt.ry,.04);
       cur.rz=lerp(cur.rz,tgt.rz,.04); cur.ty=lerp(cur.ty,tgt.ty,.04);
       circle.style.transform='rotateX('+cur.rx+'deg) rotateY('+cur.ry+'deg) rotateZ('+cur.rz+'deg) translateY('+cur.ty+'px)';
-      requestAnimationFrame(tick);
-    })();
+      if(Math.abs(cur.rx-tgt.rx)>.05||Math.abs(cur.ry-tgt.ry)>.05||Math.abs(cur.rz-tgt.rz)>.05||Math.abs(cur.ty-tgt.ty)>.05){
+        rafId=requestAnimationFrame(tick);
+      } else { rafId=null; }
+    }
+    document.addEventListener('mousemove', function(e) {
+      var t = e.clientY / window.innerHeight;
+      tgt.rx = 55 + t*10; tgt.ry = 21 + t*10; tgt.rz = -60 + t*120; tgt.ty = 40 - t*100;
+      if(!rafId) rafId=requestAnimationFrame(tick);
+    }, {passive:true});
 
     var SD='cubic-bezier(0.5,0,0.5,1.4)', SU='cubic-bezier(0.34,1.56,0.64,1)';
     document.querySelectorAll('.area-a1,.area-a2,.area-a3,.area-a4,.area-a5,.area-main-a6,.area-a7,.area-a8,.area-a9,.area-a10').forEach(function(a){
