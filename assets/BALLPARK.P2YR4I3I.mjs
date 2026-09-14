@@ -1,0 +1,2 @@
+import{t as e}from"./rolldown-runtime.Dh6celcD.mjs";import{B as t,R as n,l as r,s as i}from"./react.qBFIME1a.mjs";function a(e){return n=>r(e,{...n,onClick:()=>t?.showBallParkWidget?.()})}var o=e((()=>{n(),i()}));export{a as n,o as t};
+//# sourceMappingURL=BALLPARK.P2YR4I3I.mjs.map
