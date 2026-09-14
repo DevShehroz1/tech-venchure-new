@@ -110,6 +110,45 @@
       .nav-mobile { left: 10px; right: 10px; top: 80px; }
       .btn-estimate { font-size: 10.5px; padding: 6px 11px; }
     }
+
+    /* TV Hero */
+    :root{--tvh-c1:#ff7b00;--tvh-c2:rgba(0,0,0,.7);--tvh-cb:rgba(255,255,255,.15);--tvh-ca:#fff}
+    #tv-hero-wrap{padding:14px 14px 0;width:100%;box-sizing:border-box}
+    #tv-hero{background:#000;border-radius:20px;overflow:hidden;position:relative;min-height:100svh;display:flex;flex-direction:column;font-size:16px;transform:translateZ(0)}
+    .tvh-section{flex:1;display:flex;justify-content:flex-start;align-items:center;padding:8em 2.5em 6em 4.5em;position:relative;z-index:1}
+    .tvh-content{width:100%;max-width:75em}
+    .tvh-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:0 0.5em}
+    .tvh-block{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:2em;position:relative;z-index:50}
+    .tvh-eyebrow{font-family:"PP Neue Montreal Regular","PP Neue Montreal Regular Placeholder",sans-serif;font-size:.85em;color:rgb(153,153,153);letter-spacing:.06em;display:flex;align-items:center;gap:.5em;margin:0}
+    .tvh-heading{font-family:"PP Neue Montreal Regular","PP Neue Montreal Regular Placeholder",sans-serif;font-size:5em;font-weight:500;line-height:1em;margin:0;color:#fafafa}
+    .tvh-para{font-family:"PP Neue Montreal Regular","PP Neue Montreal Regular Placeholder",sans-serif;font-size:1.05em;line-height:1.65em;letter-spacing:.02em;color:#d0d0d0;max-width:26em;margin:0}
+    .tvh-ctas{display:flex;gap:12px;flex-wrap:wrap}
+    .tvh-btn{display:inline-flex;align-items:center;gap:.45em;font-family:"PP Neue Montreal Regular","PP Neue Montreal Regular Placeholder",sans-serif;font-size:.88em;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:.85em 1.5em;border-radius:10px;text-decoration:none;line-height:1.2em;cursor:pointer;background:rgba(8,8,8,.55);color:#fff;border:1px solid rgba(255,255,255,.32);transition:background .2s,border-color .2s}
+    .tvh-btn:hover{background:rgba(30,30,30,.75);border-color:rgba(255,255,255,.6)}
+    .tvh-btn-cta{background:linear-gradient(20deg,#ff2200,#ff8800)!important;border:none!important;box-shadow:0 7px 60px -10px rgba(255,80,0,.85)!important;border-radius:10px!important}
+    .tvh-btn-cta:hover{background:linear-gradient(20deg,#ff4400,#ffaa00)!important;box-shadow:0 0 40px rgba(255,80,0,.6)!important}
+    .tvh-sphere-wrap{display:flex;justify-content:center;align-items:center;min-height:26em;position:relative}
+    .tvh-sphere-inner{position:absolute;top:0;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;perspective:2000px}
+    .circle-hero{transform-style:preserve-3d;display:flex;justify-content:center;align-items:center;font-size:1.2em;position:relative;top:1.4em;width:30em;height:30em;transform:rotateX(60deg) rotateY(26deg) rotateZ(0deg);will-change:transform}
+    .area-main-a6{z-index:5;border-radius:100%;width:30em;height:30em;position:absolute;transform:translate3d(-50%,-50%,0);top:50%;left:50%}
+    .area-a5{z-index:6;border-radius:100%;width:30em;height:30em;position:absolute;transform:translate3d(-50%,-50%,3em);top:50%;left:50%;transform-style:preserve-3d}
+    .area-a4{z-index:7;border-radius:100%;width:27.9em;height:27.9em;position:absolute;transform:translate3d(-50%,-50%,6em);top:50%;left:50%;transform-style:preserve-3d}
+    .area-a3{z-index:8;border-radius:100%;width:24.6em;height:24.6em;position:absolute;transform:translate3d(-50%,-50%,9em);top:50%;left:50%;transform-style:preserve-3d;filter:blur(10px)}
+    .area-a2{z-index:9;border-radius:100%;width:19.2em;height:19.2em;position:absolute;transform:translate3d(-50%,-50%,12em);top:50%;left:50%;transform-style:preserve-3d;filter:blur(15px)}
+    .area-a1{z-index:10;border-radius:100%;width:11.4em;height:11.4em;position:absolute;transform:translate3d(-50%,-50%,15em);top:50%;left:50%;transform-style:preserve-3d;filter:blur(20px)}
+    .area-a7{z-index:4;border-radius:100%;width:27.9em;height:27.9em;position:absolute;transform:translate3d(-50%,-50%,-3em);top:50%;left:50%;transform-style:preserve-3d}
+    .area-a8{z-index:3;border-radius:100%;width:24.6em;height:24.6em;position:absolute;transform:translate3d(-50%,-50%,-6em);top:50%;left:50%;transform-style:preserve-3d;filter:blur(10px)}
+    .area-a9{z-index:2;border-radius:100%;width:19.2em;height:19.2em;position:absolute;transform:translate3d(-50%,-50%,-9em);top:50%;left:50%;transform-style:preserve-3d;filter:blur(15px)}
+    .area-a10{z-index:1;border-radius:100%;width:11.4em;height:11.4em;position:absolute;transform:translate3d(-50%,-50%,-12em);top:50%;left:50%;transform-style:preserve-3d;filter:blur(20px)}
+    .color-circle{width:100%;height:100%;border-radius:100%;background-image:linear-gradient(72deg,var(--tvh-c1),var(--tvh-c2) 80%);box-shadow:inset 0 0 0 1px var(--tvh-cb);position:relative;will-change:transform}
+    .color-circle.line{background-image:none;box-shadow:inset 0 0 0 3px var(--tvh-ca)}
+    .tvh-blur-top{z-index:0;position:absolute;top:-8em;left:28%;width:65%;height:22em;background:#FF9900;filter:blur(150px);border-radius:100%;pointer-events:none}
+    .tvh-blur-sphere{z-index:0;position:absolute;bottom:-4em;width:50em;height:20em;background:#FF0000;filter:blur(150px);border-radius:100%;pointer-events:none}
+    .tvh-bottom{position:absolute;bottom:0;left:0;right:0;padding:1.5em 2.2em;display:flex;justify-content:space-between;align-items:center;z-index:10}
+    .tvh-scroll,.tvh-est{font-family:"PP Neue Montreal Regular","PP Neue Montreal Regular Placeholder",sans-serif;font-size:.82em;color:rgba(255,255,255,.55);letter-spacing:.03em}
+    @media(max-width:991px){.tvh-heading{font-size:3.8em}.circle-hero{font-size:1em}}
+    @media(max-width:767px){.tvh-grid{grid-template-columns:1fr}.tvh-block{align-items:flex-start}.tvh-heading{font-size:3em}.tvh-blur-top{left:10%;width:80%;top:-5em}.tvh-blur-sphere{width:38em;height:18em}#tv-hero-wrap{padding:8px 8px 0}}
+    @media(max-width:479px){.tvh-section{padding-top:7em;padding-bottom:5em}.tvh-heading{font-size:2.4em}.tvh-sphere-wrap{min-height:22em}.circle-hero{font-size:.7em}}
   </style>
 </head>
 <body>
@@ -152,6 +191,48 @@
   <a href="#" style="color:#ff6b00;border-bottom:none;margin-top:8px">Get an Estimate &#8594;</a>
 </div>
 
+<div id="tv-hero-wrap">
+  <div id="tv-hero">
+    <div class="tvh-blur-top"></div>
+    <div class="tvh-section">
+      <div class="tvh-content">
+        <div class="tvh-grid">
+          <div class="tvh-block">
+            <div class="tvh-eyebrow">[ TECH VENCHURE ]&nbsp;&rarr;</div>
+            <h1 class="tvh-heading">Experience the<br>Future</h1>
+            <p class="tvh-para">AI-Powered Marketing, Your Pathway to Success in the Digital Age. We build brands and accelerate startups in MENA.</p>
+            <div class="tvh-ctas">
+              <a href="index.html#portfolio" class="tvh-btn">VIEW PROJECTS &rarr;</a>
+              <a href="#svg9928795503" class="tvh-btn tvh-btn-cta">GET A QUOTE &rarr;</a>
+            </div>
+          </div>
+          <div class="tvh-sphere-wrap">
+            <div class="tvh-sphere-inner">
+              <div class="circle-hero" id="circleHero">
+                <div class="area-a1"><div class="color-circle"></div></div>
+                <div class="area-a2"><div class="color-circle"></div></div>
+                <div class="area-a3"><div class="color-circle"></div></div>
+                <div class="area-a4"><div class="color-circle"></div></div>
+                <div class="area-a5"><div class="color-circle"></div></div>
+                <div class="area-main-a6"><div class="color-circle line"></div></div>
+                <div class="area-a7"><div class="color-circle"></div></div>
+                <div class="area-a8"><div class="color-circle"></div></div>
+                <div class="area-a9"><div class="color-circle"></div></div>
+                <div class="area-a10"><div class="color-circle"></div></div>
+              </div>
+            </div>
+            <div class="tvh-blur-sphere"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tvh-bottom">
+      <span class="tvh-scroll">Scroll for more &darr;</span>
+      <span class="tvh-est">Est. in 2015</span>
+    </div>
+  </div>
+</div>
+
 <script>
   var nav = document.getElementById('nav');
   window.addEventListener('scroll', function() {
@@ -171,6 +252,36 @@
       s[0].style.transform = s[1].style.opacity = s[2].style.transform = '';
     }
   });
+
+  var circle = document.getElementById('circleHero');
+  if (circle) {
+    var cur = {rx:60,ry:26,rz:0,ty:-10}, tgt = {rx:60,ry:26,rz:0,ty:-10};
+    document.addEventListener('mousemove', function(e) {
+      var t = e.clientY / window.innerHeight;
+      tgt.rx = 55 + t*10; tgt.ry = 21 + t*10; tgt.rz = -60 + t*120; tgt.ty = 40 - t*100;
+    });
+    function lerp(a,b,f){return a+(b-a)*f;}
+    (function tick(){
+      cur.rx=lerp(cur.rx,tgt.rx,.04); cur.ry=lerp(cur.ry,tgt.ry,.04);
+      cur.rz=lerp(cur.rz,tgt.rz,.04); cur.ty=lerp(cur.ty,tgt.ty,.04);
+      circle.style.transform='rotateX('+cur.rx+'deg) rotateY('+cur.ry+'deg) rotateZ('+cur.rz+'deg) translateY('+cur.ty+'px)';
+      requestAnimationFrame(tick);
+    })();
+
+    var SD='cubic-bezier(0.5,0,0.5,1.4)', SU='cubic-bezier(0.34,1.56,0.64,1)';
+    document.querySelectorAll('.area-a1,.area-a2,.area-a3,.area-a4,.area-a5,.area-main-a6,.area-a7,.area-a8,.area-a9,.area-a10').forEach(function(a){
+      var p=false;
+      a.addEventListener('mouseenter',function(){
+        if(p)return; p=true;
+        var cc=a.querySelector('.color-circle');
+        cc.style.transition='transform 300ms '+SD; cc.style.transform='scale(0.85)';
+        setTimeout(function(){
+          cc.style.transition='transform 500ms '+SU; cc.style.transform='scale(1)';
+          setTimeout(function(){p=false;},500);
+        },300);
+      });
+    });
+  }
 </script>
 
 </body>
