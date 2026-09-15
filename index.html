@@ -195,18 +195,18 @@
     .tvs-num {
       font-family: 'PP Supply Mono Regular', monospace;
       font-size: 13px; letter-spacing: .05em;
-      color: #9b55ff;
+      color: #9b55ff; text-align: center;
     }
     .tvs-letter {
-      flex: 1; display: flex; align-items: center;
+      flex: 1; display: flex; align-items: center; justify-content: center;
       font-family: 'Bebas Neue', sans-serif;
       font-size: 180px; line-height: 1;
-      color: #fff;
+      color: #fff; text-align: center;
     }
     .tvs-label {
       font-family: 'PP Neue Montreal Medium', sans-serif;
       font-size: 18px; letter-spacing: -.01em; font-weight: 500;
-      color: rgba(255,255,255,0.92);
+      color: rgba(255,255,255,0.92); text-align: center;
     }
     /* heading centered behind the cards */
     .tvs-heading-wrap {
@@ -621,18 +621,14 @@ var circle = document.getElementById('circleHero');
     var cards = Array.from(svc.querySelectorAll('.tvs-card'));
     var N = cards.length; // 4
 
-    // Per-card scroll window: 75% of total, offset by 8.33% per stagger index
-    var WINDOW = 0.75;
-    var STAGGER = (1 - WINDOW) / (N - 1); // 0.0833
+    // Larger stagger + ease-in-out → XP-Agency-like gaps between cards
+    var WINDOW = 0.64;
+    var STAGGER = 0.12; // (1-0.64)/(N-1) = 0.12
 
-    // DOM order: cards[0]=04(back), cards[3]=01(front)
-    // Stagger index si: 0=front(01,animates first), 3=back(04,animates last)
-    // si = N-1-dom_i
-    // Start: TX=-(30+si*3.33)vw, TY=20vh, RY=80deg
-    // End:   TX=(40-si*3.33)vw,  TY=-20vh, RY=-80deg
+    function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
 
     function cardP(si, global) {
-      return Math.max(0, Math.min(1, (global - si * STAGGER) / WINDOW));
+      return ease(Math.max(0, Math.min(1, (global - si * STAGGER) / WINDOW)));
     }
 
     function update() {
