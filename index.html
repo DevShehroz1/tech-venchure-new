@@ -176,16 +176,17 @@
     .tvs-cards-wrap {
       position: absolute;
       left: 50%; top: 50%;
-      margin-left: -130px;
-      margin-top: -180px;
-      width: 260px; height: 360px;
+      margin-left: -160px;
+      margin-top: -230px;
+      width: 320px; height: 460px;
       transform-style: preserve-3d;
+      z-index: 2;
     }
     .tvs-card {
       position: absolute; inset: 0;
       background: #0d0d0d;
-      border-radius: 16px;
-      padding: 22px 22px 26px;
+      border-radius: 20px;
+      padding: 24px 24px 30px;
       display: flex; flex-direction: column;
       border: 1px solid rgba(255,255,255,0.07);
       backface-visibility: hidden;
@@ -193,33 +194,40 @@
     }
     .tvs-num {
       font-family: 'PP Supply Mono Regular', monospace;
-      font-size: 12px; letter-spacing: .05em;
+      font-size: 13px; letter-spacing: .05em;
       color: #9b55ff;
     }
     .tvs-letter {
       flex: 1; display: flex; align-items: center;
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 130px; line-height: 1;
+      font-size: 180px; line-height: 1;
       color: #fff;
     }
     .tvs-label {
-      font-family: 'PP Neue Montreal Regular', sans-serif;
-      font-size: 16px; letter-spacing: -.01em;
-      color: rgba(255,255,255,0.88);
+      font-family: 'PP Neue Montreal Medium', sans-serif;
+      font-size: 18px; letter-spacing: -.01em; font-weight: 500;
+      color: rgba(255,255,255,0.92);
     }
+    /* heading centered behind the cards */
     .tvs-heading-wrap {
       position: absolute;
-      right: 8%; top: 50%;
-      transform: translateY(-50%);
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      white-space: nowrap;
+      z-index: 1;
+      pointer-events: none;
     }
     .tvs-heading-wrap h2 {
       font-family: 'PP Neue Montreal Medium', sans-serif;
-      font-size: clamp(60px, 8vw, 116px);
+      font-size: clamp(72px, 9.5vw, 140px);
       font-weight: 500; color: #fff;
       line-height: 1; letter-spacing: -.03em;
     }
     @media(max-width:767px){
-      .tvs-heading-wrap { right: auto; left: 50%; top: 28%; transform: translate(-50%, -50%); text-align: center; }
+      .tvs-cards-wrap { margin-left: -130px; margin-top: -185px; width: 260px; height: 370px; }
+      .tvs-letter { font-size: 140px; }
+      .tvs-heading-wrap h2 { font-size: clamp(52px, 12vw, 80px); white-space: normal; text-align: center; }
     }
   </style>
 </head>
