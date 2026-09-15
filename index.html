@@ -268,7 +268,7 @@
     }
     document.addEventListener('mousemove', function(e) {
       var t = e.clientY / window.innerHeight;
-      tgt.rx = 55 + t*10; tgt.ry = 21 + t*10; tgt.rz = -60 + t*120; tgt.ty = 40 - t*100;
+      tgt.rx = 55 + t*10; tgt.ry = 21 + t*10; tgt.rz = 0; tgt.ty = 40 - t*100;
       if(!rafId) rafId=requestAnimationFrame(tick);
     }, {passive:true});
 
