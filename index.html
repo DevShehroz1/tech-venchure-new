@@ -135,6 +135,27 @@
     .tv-ticker-track img{height:40px;width:auto;object-fit:contain;opacity:0.75;filter:grayscale(1) brightness(0.15)}
     .tv-ticker-track img.invert{filter:grayscale(1) brightness(0) invert(1) brightness(0.15)}
 
+    /* Projects */
+    #tv-projects{background:#000;padding:80px 0 0;overflow:hidden}
+    .tvp-header{display:flex;justify-content:space-between;align-items:flex-start;padding:0 60px 56px;gap:48px}
+    .tvp-title-row{display:flex;align-items:flex-start;gap:14px;flex-shrink:0}
+    .tvp-heading{font-family:'Inter',sans-serif;font-size:72px;font-weight:700;color:#fff;line-height:1;letter-spacing:-0.03em;margin:0}
+    .tvp-count{font-size:14px;font-family:'PP Supply Mono Regular',monospace;color:#fff;background:rgb(70,28,130);border-radius:20px;padding:5px 13px;margin-top:10px;letter-spacing:0;flex-shrink:0}
+    .tvp-header-right{display:flex;flex-direction:column;align-items:flex-start;gap:22px;padding-top:6px}
+    .tvp-desc{color:rgba(255,255,255,0.5);font-family:'PP Neue Montreal Regular',sans-serif;font-size:16px;line-height:1.65;max-width:340px;margin:0}
+    .tvp-btn{display:inline-block;background:rgb(70,28,130);border-radius:259px;padding:13px 28px;color:#fff;font-size:14px;font-family:'PP Neue Montreal Regular',sans-serif;text-decoration:none;transition:background .2s;white-space:nowrap}
+    .tvp-btn:hover{background:rgb(90,42,160)}
+    .tvp-carousel-outer{overflow:hidden;padding-bottom:90px}
+    .tvp-carousel-track{display:flex;gap:20px;padding:0 60px;transform:perspective(1200px) rotateY(40deg);transform-origin:left center;width:max-content}
+    .tvp-card{flex:0 0 300px;display:flex;flex-direction:column;gap:14px}
+    .tvp-card-img{width:100%;aspect-ratio:4/5;border-radius:14px;overflow:hidden;background:#111}
+    .tvp-card-img img{width:100%;height:100%;object-fit:cover;display:block}
+    .tvp-card-meta{display:flex;flex-direction:column;gap:6px}
+    .tvp-card-tag{display:inline-block;background:rgba(228,245,130,0.15);color:#e4f582;font-family:'PP Supply Mono Regular',monospace;font-size:11px;letter-spacing:.05em;text-transform:uppercase;border-radius:259px;padding:5px 13px;border:1px solid rgba(228,245,130,0.25);width:fit-content}
+    .tvp-card-name{color:#fff;font-family:'Inter',sans-serif;font-size:16px;font-weight:600;letter-spacing:-0.01em;margin:0}
+    @media(max-width:991px){.tvp-heading{font-size:52px}.tvp-header{padding:0 32px 40px;flex-direction:column;gap:24px}.tvp-carousel-track{padding:0 32px;transform:perspective(900px) rotateY(28deg)}.tvp-card{flex:0 0 240px}}
+    @media(max-width:767px){.tvp-heading{font-size:42px}.tvp-carousel-track{transform:none;flex-wrap:nowrap;overflow-x:auto}.tvp-carousel-outer{overflow-x:auto}}
+
     @media(max-width:991px){.tvh-heading{font-size:3.8em}.circle-hero{font-size:1em}}
     @media(max-width:767px){.tvh-grid{grid-template-columns:1fr}.tvh-block{align-items:flex-start}.tvh-heading{font-size:3em}.tvh-blur-top{left:10%;width:80%;top:-5em}.tvh-blur-sphere{width:38em;height:18em}#tv-hero-wrap{padding:8px 8px 0}}
     @media(max-width:479px){.tvh-section{padding-top:7em;padding-bottom:5em}.tvh-heading{font-size:2.4em}.tvh-sphere-wrap{min-height:22em}.circle-hero{font-size:.7em}}
@@ -245,6 +266,72 @@
       <img src="https://framerusercontent.com/images/kZ1lMKnqVwI2vV7w1cZd8LAhF3A.png" alt="">
       <img src="https://framerusercontent.com/images/7olyNF6jt1pHqK4i1NueccN2nJo.png" alt="">
       <img src="https://framerusercontent.com/images/rRHDZtfhCB9WJxnnx5Kek57Pdw.png" alt="">
+    </div>
+  </div>
+</section>
+
+<section id="tv-projects">
+  <div class="tvp-header">
+    <div class="tvp-title-row">
+      <h2 class="tvp-heading">Projects.</h2>
+      <span class="tvp-count">(07)</span>
+    </div>
+    <div class="tvp-header-right">
+      <p class="tvp-desc">Explore how we've helped brands grow through creative strategy, digital campaigns, and immersive experiences.</p>
+      <a href="#" class="tvp-btn">All our projects</a>
+    </div>
+  </div>
+  <div class="tvp-carousel-outer">
+    <div class="tvp-carousel-track">
+      <div class="tvp-card">
+        <div class="tvp-card-img"><img src="https://xp-agency-ten.vercel.app/mockups/akjewels.png" alt="AK Jewels" loading="lazy"></div>
+        <div class="tvp-card-meta">
+          <span class="tvp-card-tag">Content &amp; Creative Production</span>
+          <p class="tvp-card-name">AK JEWELS</p>
+        </div>
+      </div>
+      <div class="tvp-card">
+        <div class="tvp-card-img"><img src="https://xp-agency-ten.vercel.app/mockups/ferraro.png" alt="Feraro" loading="lazy"></div>
+        <div class="tvp-card-meta">
+          <span class="tvp-card-tag">Social Media Management</span>
+          <p class="tvp-card-name">FERARO</p>
+        </div>
+      </div>
+      <div class="tvp-card">
+        <div class="tvp-card-img"><img src="https://xp-agency-ten.vercel.app/mockups/irongear.png" alt="Iron Gear" loading="lazy"></div>
+        <div class="tvp-card-meta">
+          <span class="tvp-card-tag">Social Media Management</span>
+          <p class="tvp-card-name">IRON GEAR</p>
+        </div>
+      </div>
+      <div class="tvp-card">
+        <div class="tvp-card-img"><img src="https://xp-agency-ten.vercel.app/mockups/kiddie.png" alt="Kiddie Kulture" loading="lazy"></div>
+        <div class="tvp-card-meta">
+          <span class="tvp-card-tag">Web Design</span>
+          <p class="tvp-card-name">KIDDIE KULTURE</p>
+        </div>
+      </div>
+      <div class="tvp-card">
+        <div class="tvp-card-img"><img src="https://xp-agency-ten.vercel.app/mockups/rilancio.png" alt="Rilancio" loading="lazy"></div>
+        <div class="tvp-card-meta">
+          <span class="tvp-card-tag">Web Design</span>
+          <p class="tvp-card-name">RILANCIO</p>
+        </div>
+      </div>
+      <div class="tvp-card">
+        <div class="tvp-card-img"><img src="https://xp-agency-ten.vercel.app/mockups/tebeena.png" alt="Tebeena" loading="lazy"></div>
+        <div class="tvp-card-meta">
+          <span class="tvp-card-tag">Content &amp; Creative Production</span>
+          <p class="tvp-card-name">TEBEENA</p>
+        </div>
+      </div>
+      <div class="tvp-card">
+        <div class="tvp-card-img"><img src="https://xp-agency-ten.vercel.app/mockups/tonny-kids.png" alt="Tooney Kids" loading="lazy"></div>
+        <div class="tvp-card-meta">
+          <span class="tvp-card-tag">Branding</span>
+          <p class="tvp-card-name">TOONEY KIDS</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
