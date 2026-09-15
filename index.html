@@ -133,8 +133,8 @@
     .tv-ticker-wrap{overflow:hidden;mask-image:linear-gradient(to right,rgba(0,0,0,0) 0%,rgb(0,0,0) 10%,rgb(0,0,0) 90%,rgba(0,0,0,0) 100%);-webkit-mask-image:linear-gradient(to right,rgba(0,0,0,0) 0%,rgb(0,0,0) 10%,rgb(0,0,0) 90%,rgba(0,0,0,0) 100%)}
     .tv-ticker-track{display:flex;align-items:center;gap:80px;width:max-content;animation:tv-ticker-scroll 28s linear infinite}
     @keyframes tv-ticker-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-    .tv-ticker-track img{height:40px;width:auto;object-fit:contain;opacity:0.75;filter:grayscale(1) brightness(0.15)}
-    .tv-ticker-track img.invert{filter:invert(1) grayscale(1) brightness(0.25);mix-blend-mode:multiply}
+    .tv-ticker-track img{height:40px;width:auto;display:block;visibility:hidden}
+    .tvt-logo-wrap{display:inline-flex;align-items:center;background:linear-gradient(135deg,#FF9900,#FF0000);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:contain;mask-size:contain;-webkit-mask-position:center;mask-position:center;opacity:0.85;flex-shrink:0}
 
     /* Projects */
     #tv-projects{background:#000;padding:80px 0 90px;overflow:hidden}
@@ -227,6 +227,29 @@
       .tvs-cards-wrap { margin-left: -130px; margin-top: -185px; width: 260px; height: 370px; }
       .tvs-heading-wrap h2 { font-size: clamp(52px, 12vw, 80px); white-space: normal; text-align: center; }
     }
+    /* ── Testimonials ── */
+    #tv-testimonials { background: #000; padding: 100px 0; overflow: hidden; }
+    .tvt-header { text-align: center; max-width: 540px; margin: 0 auto 60px; padding: 0 24px; }
+    .tvt-badge { display: inline-block; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 4px 16px; font-family: 'PP Neue Montreal Regular', sans-serif; font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 20px; }
+    .tvt-heading { font-family: 'PP Neue Montreal Medium', sans-serif; font-size: clamp(28px, 4vw, 48px); font-weight: 700; color: #fff; letter-spacing: -0.03em; line-height: 1.1; margin: 0 0 16px; }
+    .tvt-sub { font-family: 'PP Neue Montreal Regular', sans-serif; font-size: 15px; color: rgba(255,255,255,0.55); margin: 0; }
+    .tvt-columns { display: flex; justify-content: center; gap: 24px; max-height: 740px; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent); mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent); }
+    .tvt-column { flex: 0 0 auto; width: 300px; }
+    .tvt-column.md-hide { display: none; }
+    .tvt-column.lg-hide { display: none; }
+    @media (min-width: 768px) { .tvt-column.md-hide { display: block; } }
+    @media (min-width: 1024px) { .tvt-column.lg-hide { display: block; } }
+    @keyframes tvt-scroll { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+    .tvt-track { display: flex; flex-direction: column; gap: 24px; padding-bottom: 24px; animation: tvt-scroll linear infinite; }
+    .tvt-track.speed-15 { animation-duration: 15s; }
+    .tvt-track.speed-19 { animation-duration: 19s; }
+    .tvt-track.speed-17 { animation-duration: 17s; }
+    .tvt-card { background: #0d0d0d padding-box, linear-gradient(135deg, #FF9900, #FF0000) border-box; border: 1px solid transparent; border-radius: 24px; padding: 28px; width: 300px; box-sizing: border-box; box-shadow: 0 8px 40px rgba(255,80,0,0.08); }
+    .tvt-text { font-family: 'PP Neue Montreal Regular', sans-serif; font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.85); margin: 0 0 20px; }
+    .tvt-author { display: flex; align-items: center; gap: 10px; }
+    .tvt-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+    .tvt-name { font-family: 'PP Neue Montreal Medium', sans-serif; font-size: 14px; font-weight: 500; color: #fff; line-height: 1.3; }
+    .tvt-role { font-family: 'PP Neue Montreal Regular', sans-serif; font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.3; }
   </style>
 </head>
 <body>
@@ -325,6 +348,7 @@
       <img src="assets/cl-12-whiteboutique.png" alt="White Boutique">
       <img src="assets/cl-13-justwaqt.png" alt="Just Waqt">
       <img src="assets/cl-14-hissn.png" alt="Hissn Engineering">
+      <img src="assets/cl-15-nova.png" alt="Nova TLT">
       <!-- duplicate for seamless loop -->
       <img src="assets/cl-01-suzuki.png" alt="">
       <img src="assets/cl-02-servepro.png" alt="">
@@ -340,6 +364,7 @@
       <img src="assets/cl-12-whiteboutique.png" alt="">
       <img src="assets/cl-13-justwaqt.png" alt="">
       <img src="assets/cl-14-hissn.png" alt="">
+      <img src="assets/cl-15-nova.png" alt="">
     </div>
   </div>
 </section>
@@ -468,6 +493,122 @@
     <div class="tvs-heading-wrap">
       <h2>Our<br>Services</h2>
     </div>
+  </div>
+</section>
+
+<!-- ── Testimonials ── -->
+<section id="tv-testimonials">
+  <div class="tvt-header">
+    <div class="tvt-badge">Testimonials</div>
+    <h2 class="tvt-heading">What our clients say</h2>
+    <p class="tvt-sub">Trusted by brands across MENA to deliver measurable growth.</p>
+  </div>
+  <div class="tvt-columns">
+
+    <!-- Column 1 -->
+    <div class="tvt-column">
+      <div class="tvt-track speed-15">
+        <!-- original set -->
+        <div class="tvt-card">
+          <p class="tvt-text">"Working with Techvenchure has been a game-changer for our business. They helped us reach new audiences and achieve our goals faster than we ever thought possible."</p>
+          <div class="tvt-author">
+            <img class="tvt-avatar" src="https://cdn.21st.dev/assets/mirror/7c/7c408d5bb79392ba04b0b8a6294b4eee47a16ec377d3dae0c3108e918864bfad.jpg" alt="Malcolm Reynolds">
+            <div><div class="tvt-name">Malcolm Reynolds</div><div class="tvt-role">Co-founder, Amazement Co</div></div>
+          </div>
+        </div>
+        <div class="tvt-card">
+          <p class="tvt-text">"Techvenchure has exceeded our expectations in every way. Their team is dedicated, knowledgeable, and always goes the extra mile to ensure our campaigns are a success."</p>
+          <div class="tvt-author">
+            <img class="tvt-avatar" src="https://cdn.21st.dev/assets/mirror/71/716cfb40836039a4e9e34d89320b6398ba7871ea7882e32b7397029586f6dda7.jpg" alt="Sophia Salazar">
+            <div><div class="tvt-name">Sophia Salazar</div><div class="tvt-role">App Developer, Perspective</div></div>
+          </div>
+        </div>
+        <!-- duplicate for seamless loop -->
+        <div class="tvt-card">
+          <p class="tvt-text">"Working with Techvenchure has been a game-changer for our business. They helped us reach new audiences and achieve our goals faster than we ever thought possible."</p>
+          <div class="tvt-author">
+            <img class="tvt-avatar" src="https://cdn.21st.dev/assets/mirror/7c/7c408d5bb79392ba04b0b8a6294b4eee47a16ec377d3dae0c3108e918864bfad.jpg" alt="Malcolm Reynolds">
+            <div><div class="tvt-name">Malcolm Reynolds</div><div class="tvt-role">Co-founder, Amazement Co</div></div>
+          </div>
+        </div>
+        <div class="tvt-card">
+          <p class="tvt-text">"Techvenchure has exceeded our expectations in every way. Their team is dedicated, knowledgeable, and always goes the extra mile to ensure our campaigns are a success."</p>
+          <div class="tvt-author">
+            <img class="tvt-avatar" src="https://cdn.21st.dev/assets/mirror/71/716cfb40836039a4e9e34d89320b6398ba7871ea7882e32b7397029586f6dda7.jpg" alt="Sophia Salazar">
+            <div><div class="tvt-name">Sophia Salazar</div><div class="tvt-role">App Developer, Perspective</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column 2 -->
+    <div class="tvt-column md-hide">
+      <div class="tvt-track speed-19">
+        <div class="tvt-card">
+          <p class="tvt-text">"Techvenchure's expertise is unmatched, and they've helped us grow our online presence significantly. Their strategies are data-driven and tailored to our specific needs."</p>
+          <div class="tvt-author">
+            <img class="tvt-avatar" src="https://cdn.21st.dev/assets/mirror/7a/7ae9db9990bb424cc1cf68b6af248e7b88e7add27109a6d951eb5b4f881eda98.jpg" alt="Lisa Nelson">
+            <div><div class="tvt-name">Lisa Nelson</div><div class="tvt-role">Digital Manager, Algraphy Pro</div></div>
+          </div>
+        </div>
+        <div class="tvt-card">
+          <p class="tvt-text">"Choosing Techvenchure for our app development project was one of the best decisions we made. Their team worked tirelessly to ensure we were delivered on time and beyond spec."</p>
+          <div class="tvt-author">
+            <img class="tvt-avatar" src="https://cdn.21st.dev/assets/mirror/d1/d1db668ef30403e132bab1de4720f1c9159e8ba03dc0f3d65d5bf95f3985b80a.jpg" alt="Otis Jordan">
+            <div><div class="tvt-name">Otis Jordan</div><div class="tvt-role">Operations Manager, ServePro MENA</div></div>
+          </div>
+        </div>
+        <div class="tvt-card">
+          <p class="tvt-text">"Techvenchure's expertise is unmatched, and they've helped us grow our online presence significantly. Their strategies are data-driven and tailored to our specific needs."</p>
+          <div class="tvt-author">
+            <img class="tvt-avatar" src="https://cdn.21st.dev/assets/mirror/7a/7ae9db9990bb424cc1cf68b6af248e7b88e7add27109a6d951eb5b4f881eda98.jpg" alt="Lisa Nelson">
+            <div><div class="tvt-name">Lisa Nelson</div><div class="tvt-role">Digital Manager, Algraphy Pro</div></div>
+          </div>
+        </div>
+        <div class="tvt-card">
+          <p class="tvt-text">"Choosing Techvenchure for our app development project was one of the best decisions we made. Their team worked tirelessly to ensure we were delivered on time and beyond spec."</p>
+          <div class="tvt-author">
+            <img class="tvt-avatar" src="https://cdn.21st.dev/assets/mirror/d1/d1db668ef30403e132bab1de4720f1c9159e8ba03dc0f3d65d5bf95f3985b80a.jpg" alt="Otis Jordan">
+            <div><div class="tvt-name">Otis Jordan</div><div class="tvt-role">Operations Manager, ServePro MENA</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column 3 -->
+    <div class="tvt-column lg-hide">
+      <div class="tvt-track speed-17">
+        <div class="tvt-card">
+          <p class="tvt-text">"Choosing Techvenchure for our SaaS development was a wise decision. Their team is experienced and dedicated, delivering a platform that scaled with our growth from day one."</p>
+          <div class="tvt-author">
+            <img class="tvt-avatar" src="https://cdn.21st.dev/assets/mirror/9e/9ef716cb49c8a7e58c27a65358d91e806a1d4c8579a128772a5d9d09d62cb113.jpg" alt="Kenneth Thompson">
+            <div><div class="tvt-name">Kenneth Thompson</div><div class="tvt-role">Operations Manager, Hissn Engineering</div></div>
+          </div>
+        </div>
+        <div class="tvt-card">
+          <p class="tvt-text">"I would highly recommend Techvenchure for SaaS development. Their team is highly skilled and professional, delivering a scalable and robust platform instrumental to our business growth."</p>
+          <div class="tvt-author">
+            <img class="tvt-avatar" src="https://cdn.21st.dev/assets/mirror/7f/7f2f1b6a4c09f5092437fe960232360d1e2dcf7a198c8580f3c5478c7b2d9386.jpg" alt="James Carter">
+            <div><div class="tvt-name">James Carter</div><div class="tvt-role">CEO, Golden Sky</div></div>
+          </div>
+        </div>
+        <div class="tvt-card">
+          <p class="tvt-text">"Choosing Techvenchure for our SaaS development was a wise decision. Their team is experienced and dedicated, delivering a platform that scaled with our growth from day one."</p>
+          <div class="tvt-author">
+            <img class="tvt-avatar" src="https://cdn.21st.dev/assets/mirror/9e/9ef716cb49c8a7e58c27a65358d91e806a1d4c8579a128772a5d9d09d62cb113.jpg" alt="Kenneth Thompson">
+            <div><div class="tvt-name">Kenneth Thompson</div><div class="tvt-role">Operations Manager, Hissn Engineering</div></div>
+          </div>
+        </div>
+        <div class="tvt-card">
+          <p class="tvt-text">"I would highly recommend Techvenchure for SaaS development. Their team is highly skilled and professional, delivering a scalable and robust platform instrumental to our business growth."</p>
+          <div class="tvt-author">
+            <img class="tvt-avatar" src="https://cdn.21st.dev/assets/mirror/7f/7f2f1b6a4c09f5092437fe960232360d1e2dcf7a198c8580f3c5478c7b2d9386.jpg" alt="James Carter">
+            <div><div class="tvt-name">James Carter</div><div class="tvt-role">CEO, Golden Sky</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -659,6 +800,17 @@ var circle = document.getElementById('circleHero');
     window.addEventListener('resize', update);
     update();
   }());
+
+  // Gradient ticker logos — wrap each img with a mask-image span
+  document.querySelectorAll('.tv-ticker-track img').forEach(function(img) {
+    var src = img.getAttribute('src');
+    var wrap = document.createElement('span');
+    wrap.className = 'tvt-logo-wrap';
+    wrap.style.webkitMaskImage = 'url("' + src + '")';
+    wrap.style.maskImage = 'url("' + src + '")';
+    img.parentNode.insertBefore(wrap, img);
+    wrap.appendChild(img);
+  });
 </script>
 
 </body>
