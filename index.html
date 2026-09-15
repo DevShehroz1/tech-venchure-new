@@ -148,15 +148,15 @@
     /* Carousel */
     .tvp-carousel-outer{overflow:hidden;perspective:1200px;cursor:grab}
     .tvp-carousel-outer.dragging{cursor:grabbing}
-    .tvp-carousel-3d{transform:rotateY(40deg);transform-origin:left center}
-    .tvp-ticker-list{display:flex;gap:20px;list-style:none;padding:0 0 0 60px;width:max-content;will-change:transform;user-select:none}
-    .tvp-card{flex:0 0 400px;display:flex;flex-direction:column;gap:12px}
-    .tvp-card-img{width:400px;height:279px;border-radius:14px;overflow:hidden;background:#111;flex-shrink:0}
+    .tvp-carousel-3d{transform:rotateY(25deg);transform-origin:left center}
+    .tvp-ticker-list{display:flex;gap:24px;list-style:none;padding:0 0 0 60px;width:max-content;will-change:transform;user-select:none}
+    .tvp-card{flex:0 0 440px;display:flex;flex-direction:column;gap:12px}
+    .tvp-card-img{width:440px;height:320px;border-radius:14px;overflow:hidden;background:#111;flex-shrink:0}
     .tvp-card-img img{width:100%;height:100%;object-fit:cover;display:block}
     .tvp-card-meta{display:flex;flex-direction:column;gap:6px}
     .tvp-card-tag{display:inline-block;background:rgba(228,245,130,0.12);color:#e4f582;font-family:'PP Supply Mono Regular',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;border-radius:259px;padding:5px 12px;border:1px solid rgba(228,245,130,0.22);width:fit-content}
     .tvp-card-name{color:#fff;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;letter-spacing:-0.01em;margin:0}
-    @media(max-width:991px){.tvp-heading{font-size:56px}.tvp-header{padding:0 32px 48px;flex-direction:column;align-items:flex-start;gap:28px}.tvp-carousel-3d{transform:rotateY(26deg)}}
+    @media(max-width:991px){.tvp-heading{font-size:56px}.tvp-header{padding:0 32px 48px;flex-direction:column;align-items:flex-start;gap:28px}.tvp-carousel-3d{transform:rotateY(16deg)}}
     @media(max-width:767px){.tvp-heading{font-size:42px}.tvp-carousel-3d{transform:none}}
 
     @media(max-width:991px){.tvh-heading{font-size:3.8em}.circle-hero{font-size:1em}}
@@ -438,7 +438,7 @@ var circle = document.getElementById('circleHero');
   var tvpTicker = document.getElementById('tvpTicker');
   if (tvpTicker) {
     var tvpPos = 0;
-    var tvpHalf = 7 * 420; // 7 cards × (400px + 20px gap)
+    var tvpHalf = 7 * 464; // 7 cards × (440px + 24px gap)
     var tvpBaseVel = -0.6;  // auto-scroll speed (px/frame, negative = left)
     var tvpVel = tvpBaseVel;
     var tvpDragging = false;
