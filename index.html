@@ -137,7 +137,7 @@
     .tv-ticker-track img.invert{filter:grayscale(1) brightness(0) invert(1) brightness(0.15)}
 
     /* Projects */
-    #tv-projects{background:#000;padding:80px 0 90px;overflow:hidden}
+    #tv-projects{background:#010D30;padding:80px 0 90px;overflow:hidden}
     .tvp-header{display:flex;justify-content:space-between;align-items:flex-end;padding:0 60px 64px}
     .tvp-left{display:flex;flex-direction:column;gap:16px}
     .tvp-title-row{display:flex;align-items:center;gap:14px}
@@ -156,7 +156,7 @@
     .tvp-card-img{width:440px;height:320px;border-radius:14px;overflow:hidden;background:#111;flex-shrink:0}
     .tvp-card-img img{width:100%;height:100%;object-fit:cover;display:block}
     .tvp-card-meta{display:flex;flex-direction:column;gap:6px}
-    .tvp-card-tag{display:inline-block;background:rgba(228,245,130,0.12);color:#e4f582;font-family:'PP Supply Mono Regular',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;border-radius:259px;padding:5px 12px;border:1px solid rgba(228,245,130,0.22);width:fit-content}
+    .tvp-card-tag{display:none}
     .tvp-card-name{color:#fff;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;letter-spacing:-0.01em;margin:0}
     @media(max-width:991px){.tvp-heading{font-size:56px}.tvp-header{padding:0 32px 48px;flex-direction:column;align-items:flex-start;gap:28px}.tvp-carousel-3d{transform:rotateY(16deg)}}
     @media(max-width:767px){.tvp-heading{font-size:42px}.tvp-carousel-3d{transform:none}}
@@ -169,7 +169,7 @@
     #tv-services { position: relative; height: 400vh; }
     .tvs-sticky {
       position: sticky; top: 0; height: 100vh;
-      background: #461c82;
+      background: #010D30;
       overflow: hidden;
       perspective: 1200px;
     }
@@ -185,18 +185,18 @@
     }
     .tvs-card {
       position: absolute; inset: 0;
-      background: #0d0d0d;
+      background: linear-gradient(180deg,#FF9900,#FF0000);
       border-radius: 20px;
       padding: 24px 24px 30px;
       display: flex; flex-direction: column;
-      border: 1px solid rgba(255,255,255,0.07);
+      border: none;
       backface-visibility: hidden;
       will-change: transform;
     }
     .tvs-num {
       font-family: 'PP Supply Mono Regular', monospace;
       font-size: 13px; letter-spacing: .05em;
-      color: #9b55ff; text-align: center;
+      color: rgba(255,255,255,0.75); text-align: center;
     }
     .tvs-letter {
       flex: 1; display: flex; align-items: center; justify-content: center;
