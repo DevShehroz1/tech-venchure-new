@@ -134,10 +134,10 @@
     .tv-ticker-track{display:flex;align-items:center;gap:80px;width:max-content;animation:tv-ticker-scroll 28s linear infinite}
     @keyframes tv-ticker-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
     .tv-ticker-track img{height:40px;width:auto;object-fit:contain;opacity:0.75;filter:grayscale(1) brightness(0.15)}
-    .tv-ticker-track img.invert{filter:grayscale(1) brightness(0) invert(1) brightness(0.15)}
+    .tv-ticker-track img.invert{filter:invert(1) grayscale(1) brightness(0.25);mix-blend-mode:multiply}
 
     /* Projects */
-    #tv-projects{background:#010D30;padding:80px 0 90px;overflow:hidden}
+    #tv-projects{background:#000;padding:80px 0 90px;overflow:hidden}
     .tvp-header{display:flex;justify-content:space-between;align-items:flex-end;padding:0 60px 64px}
     .tvp-left{display:flex;flex-direction:column;gap:16px}
     .tvp-title-row{display:flex;align-items:center;gap:14px}
@@ -169,7 +169,7 @@
     #tv-services { position: relative; height: 400vh; }
     .tvs-sticky {
       position: sticky; top: 0; height: 100vh;
-      background: #010D30;
+      background: #000;
       overflow: hidden;
       perspective: 1200px;
     }
@@ -311,29 +311,31 @@
   <div class="tv-clients-label">[ MOVING FORWARD ] &darr;</div>
   <div class="tv-ticker-wrap">
     <div class="tv-ticker-track">
-      <img src="https://framerusercontent.com/images/54ipZYE0Xs5Fw2s8RRC1Xw5MwOU.png" alt="KIMFU">
-      <img src="https://framerusercontent.com/images/jzNbMKEQfKGZWGyXkWyH9UEnY.png" alt="Enzo Drew">
-      <img src="https://framerusercontent.com/images/K18ubhU4pp49OY7JLgpFwvKV7lU.png" alt="Sidehit">
-      <img src="https://framerusercontent.com/images/t2JJSMOlfu93XD3jRMv9yDyUlsg.svg" alt="Boombox">
-      <img src="https://framerusercontent.com/images/sLzH4rMcDu6Hw2kF6Or04Y9g9BM.png" alt="Outside">
-      <img src="https://framerusercontent.com/images/UfWxvnwlpSLBegF6HT8zbaD9x8.svg" alt="Major">
-      <img src="https://framerusercontent.com/images/jY4sMQ7GRZcZ3BQUPxHlQlFWRo.png" alt="Red Bull Media House">
-      <img src="https://framerusercontent.com/images/ZEIRzgIUgMabY6yC9LPLhSecjI.svg" alt="MOM">
-      <img src="https://framerusercontent.com/images/kZ1lMKnqVwI2vV7w1cZd8LAhF3A.png" alt="">
-      <img src="https://framerusercontent.com/images/7olyNF6jt1pHqK4i1NueccN2nJo.png" alt="Guru">
-      <img src="https://framerusercontent.com/images/rRHDZtfhCB9WJxnnx5Kek57Pdw.png" alt="94.9">
+      <img src="assets/cl-tripetal.png" alt="Client">
+      <img src="assets/cl-ajex.png" alt="AJEX DHL" class="invert">
+      <img src="assets/cl-algraphy.png" alt="Algraphy">
+      <img src="assets/cl-logo.svg" alt="Client" class="invert">
+      <img src="assets/cl-goldensky.avif" alt="Golden Sky">
+      <img src="assets/cl-tg.svg" alt="TG">
+      <img src="assets/cl-servepro.webp" alt="ServePro MENA" class="invert">
+      <img src="assets/cl-waqt.png" alt="Waqt" class="invert">
+      <img src="assets/cl-logowhite.png" alt="Client" class="invert">
+      <img src="assets/cl-amazement.webp" alt="Amazement Co">
+      <img src="assets/cl-wj.png" alt="Client">
+      <img src="assets/cl-suzuki.png" alt="Suzuki">
       <!-- duplicate for seamless loop -->
-      <img src="https://framerusercontent.com/images/54ipZYE0Xs5Fw2s8RRC1Xw5MwOU.png" alt="">
-      <img src="https://framerusercontent.com/images/jzNbMKEQfKGZWGyXkWyH9UEnY.png" alt="">
-      <img src="https://framerusercontent.com/images/K18ubhU4pp49OY7JLgpFwvKV7lU.png" alt="">
-      <img src="https://framerusercontent.com/images/t2JJSMOlfu93XD3jRMv9yDyUlsg.svg" alt="">
-      <img src="https://framerusercontent.com/images/sLzH4rMcDu6Hw2kF6Or04Y9g9BM.png" alt="">
-      <img src="https://framerusercontent.com/images/UfWxvnwlpSLBegF6HT8zbaD9x8.svg" alt="">
-      <img src="https://framerusercontent.com/images/jY4sMQ7GRZcZ3BQUPxHlQlFWRo.png" alt="">
-      <img src="https://framerusercontent.com/images/ZEIRzgIUgMabY6yC9LPLhSecjI.svg" alt="">
-      <img src="https://framerusercontent.com/images/kZ1lMKnqVwI2vV7w1cZd8LAhF3A.png" alt="">
-      <img src="https://framerusercontent.com/images/7olyNF6jt1pHqK4i1NueccN2nJo.png" alt="">
-      <img src="https://framerusercontent.com/images/rRHDZtfhCB9WJxnnx5Kek57Pdw.png" alt="">
+      <img src="assets/cl-tripetal.png" alt="">
+      <img src="assets/cl-ajex.png" alt="" class="invert">
+      <img src="assets/cl-algraphy.png" alt="">
+      <img src="assets/cl-logo.svg" alt="" class="invert">
+      <img src="assets/cl-goldensky.avif" alt="">
+      <img src="assets/cl-tg.svg" alt="">
+      <img src="assets/cl-servepro.webp" alt="" class="invert">
+      <img src="assets/cl-waqt.png" alt="" class="invert">
+      <img src="assets/cl-logowhite.png" alt="" class="invert">
+      <img src="assets/cl-amazement.webp" alt="">
+      <img src="assets/cl-wj.png" alt="">
+      <img src="assets/cl-suzuki.png" alt="">
     </div>
   </div>
 </section>
