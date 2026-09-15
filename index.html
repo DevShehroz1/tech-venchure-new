@@ -17,6 +17,62 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    .nav {
+      position: fixed;
+      top: 28px; left: 40px; right: 40px;
+      z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px; padding: 0 28px 0 24px;
+      background: transparent;
+      font-family: "PP Neue Montreal Regular", sans-serif;
+    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .nav-logo img { height: 34px; width: auto; }
+    .nav-links {
+      display: flex; align-items: center; gap: 32px; list-style: none;
+      position: absolute; left: 50%; transform: translateX(-50%);
+    }
+    .nav-links a {
+      text-decoration: none; color: rgba(255,255,255,0.72);
+      font-family: "PP Neue Montreal Regular", sans-serif;
+      font-size: 15px; font-weight: 400; letter-spacing: 0.02em;
+      white-space: nowrap; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-actions { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+    .btn-estimate {
+      display: inline-flex; align-items: center; gap: .45em;
+      color: #fff; font-family: "PP Neue Montreal Regular", sans-serif;
+      font-size: .88em; font-weight: 500;
+      letter-spacing: .06em; text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,.30); border-radius: 10px;
+      padding: .72em 1.4em; background: rgba(8,8,8,.50);
+      text-decoration: none; white-space: nowrap; line-height: 1.2em;
+      transition: background .2s, border-color .2s; cursor: pointer;
+    }
+    .btn-estimate:hover { background: rgba(30,30,30,.75); border-color: rgba(255,255,255,.6); }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 4px;
+    }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: #fff; border-radius: 2px; transition: transform 0.25s, opacity 0.25s; }
+    .nav-mobile {
+      display: none; position: fixed; top: 108px; left: 40px; right: 40px; z-index: 999;
+      background: rgba(8,8,8,0.97); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.10); border-radius: 14px; padding: 20px; flex-direction: column;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      text-decoration: none; color: rgba(255,255,255,0.75);
+      font-family: "PP Neue Montreal Regular", sans-serif;
+      font-size: 15px; font-weight: 400; letter-spacing: 0.02em;
+      padding: 13px 8px; border-bottom: 1px solid rgba(255,255,255,0.07); transition: color 0.2s;
+    }
+    .nav-mobile a:last-child { border-bottom: none; }
+    .nav-mobile a:hover { color: #fff; }
+    @media (max-width: 900px) { .nav-links { display: none; } .nav-hamburger { display: flex; } }
+    @media (max-width: 480px) { .nav { left: 10px; right: 10px; top: 12px; height: 60px; } .nav-mobile { left: 10px; right: 10px; } .btn-estimate { font-size: 10.5px; padding: 6px 11px; } }
+
     /* TV Hero */
     :root{--tvh-c1:#ff7b00;--tvh-c2:rgba(0,0,0,.7);--tvh-cb:rgba(255,255,255,.15);--tvh-ca:#fff}
     #tv-hero-wrap{padding:14px;width:100%;box-sizing:border-box}
@@ -48,8 +104,8 @@
     .area-a10{z-index:1;filter:blur(20px);border-radius:100%;width:11.4em;height:11.4em;position:absolute;transform:translate3d(-50%,-50%,-12em);top:50%;left:50%;transform-style:preserve-3d}
     .color-circle{width:100%;height:100%;border-radius:100%;background-image:linear-gradient(72deg,var(--tvh-c1),var(--tvh-c2) 80%);box-shadow:inset 0 0 0 1px var(--tvh-cb);position:relative}
     .color-circle.line{background-image:none;box-shadow:inset 0 0 0 3px var(--tvh-ca)}
-    .tvh-blur-top{z-index:0;position:absolute;top:-8em;left:auto;right:-4%;width:52%;height:22em;background:#FF9900;filter:blur(80px);border-radius:100%;pointer-events:none;transform:translateZ(0)}
-    .tvh-blur-sphere{z-index:0;position:absolute;bottom:-4em;width:50em;height:20em;background:#FF0000;filter:blur(80px);border-radius:100%;pointer-events:none;transform:translateZ(0)}
+    .tvh-blur-top{z-index:0;position:absolute;top:-6em;right:-2%;width:52%;height:22em;background:#FF9900;filter:blur(90px);border-radius:100%;pointer-events:none;transform:translateZ(0)}
+    .tvh-blur-sphere{z-index:0;position:absolute;bottom:-5em;right:-2%;width:52%;height:20em;background:#FF2200;filter:blur(90px);border-radius:100%;pointer-events:none;transform:translateZ(0)}
     .tvh-bottom{position:absolute;bottom:0;left:0;right:0;padding:1.5em 2.2em;display:flex;justify-content:space-between;align-items:center;z-index:10}
     .tvh-scroll,.tvh-est{font-family:"PP Neue Montreal Regular","PP Neue Montreal Regular Placeholder",sans-serif;font-size:.82em;color:rgba(255,255,255,.55);letter-spacing:.03em}
     @media(max-width:991px){.tvh-heading{font-size:3.8em}.circle-hero{font-size:1em}}
@@ -59,10 +115,38 @@
 </head>
 <body>
 
+<nav class="nav" id="nav">
+  <a class="nav-logo" href="/">
+    <img src="/assets/techvenchure-logo.png" alt="Tech Venchure">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Work</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">About Us</a></li>
+    <li><a href="#">Motion Index</a></li>
+    <li><a href="#">Store</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a class="btn-estimate" href="#">GET AN ESTIMATE &nbsp;&#8594;</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="nav-mobile" id="mobileMenu">
+  <a href="#">Work</a>
+  <a href="#">Services</a>
+  <a href="#">About Us</a>
+  <a href="#">Motion Index</a>
+  <a href="#">Store</a>
+  <a href="#" style="color:#ff6b00;border-bottom:none;margin-top:8px">Get an Estimate &#8594;</a>
+</div>
 
 <div id="tv-hero-wrap">
   <div id="tv-hero">
     <div class="tvh-blur-top"></div>
+    <div class="tvh-blur-sphere"></div>
     <div class="tvh-section">
       <div class="tvh-content">
         <div class="tvh-grid">
@@ -90,7 +174,6 @@
                 <div class="area-a10"><div class="color-circle"></div></div>
               </div>
             </div>
-            <div class="tvh-blur-sphere"></div>
           </div>
         </div>
       </div>
@@ -103,6 +186,22 @@
 </div>
 
 <script>
+  var hb = document.getElementById('hamburger');
+  var mm = document.getElementById('mobileMenu');
+  if (hb && mm) {
+    hb.addEventListener('click', function() {
+      mm.classList.toggle('open');
+      var s = hb.querySelectorAll('span');
+      if (mm.classList.contains('open')) {
+        s[0].style.transform = 'translateY(6.5px) rotate(45deg)';
+        s[1].style.opacity = '0';
+        s[2].style.transform = 'translateY(-6.5px) rotate(-45deg)';
+      } else {
+        s[0].style.transform = s[1].style.opacity = s[2].style.transform = '';
+      }
+    });
+  }
+
 var circle = document.getElementById('circleHero');
   if (circle) {
     var cur = {rx:60,ry:26,rz:0,ty:-10}, tgt = {rx:60,ry:26,rz:0,ty:-10};
