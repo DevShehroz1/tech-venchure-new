@@ -170,13 +170,16 @@
       position: sticky; top: 0; height: 100vh;
       background: #461c82;
       overflow: hidden;
+      perspective: 1200px;
     }
+    /* anchor at viewport center; cards offset via transform */
     .tvs-cards-wrap {
       position: absolute;
-      left: 5vw; bottom: 10vh;
-      perspective: 1200px;
-      transform-style: preserve-3d;
+      left: 50%; top: 50%;
+      margin-left: -130px;
+      margin-top: -180px;
       width: 260px; height: 360px;
+      transform-style: preserve-3d;
     }
     .tvs-card {
       position: absolute; inset: 0;
@@ -188,10 +191,6 @@
       backface-visibility: hidden;
       will-change: transform;
     }
-    .tvs-card:nth-child(1){z-index:1}
-    .tvs-card:nth-child(2){z-index:2}
-    .tvs-card:nth-child(3){z-index:3}
-    .tvs-card:nth-child(4){z-index:4}
     .tvs-num {
       font-family: 'PP Supply Mono Regular', monospace;
       font-size: 12px; letter-spacing: .05em;
@@ -220,7 +219,6 @@
       line-height: 1; letter-spacing: -.03em;
     }
     @media(max-width:767px){
-      .tvs-cards-wrap { left: 50%; bottom: 6vh; transform: translateX(-50%); }
       .tvs-heading-wrap { right: auto; left: 50%; top: 28%; transform: translate(-50%, -50%); text-align: center; }
     }
   </style>
@@ -607,37 +605,49 @@ var circle = document.getElementById('circleHero');
   }
 
   // ── Services cards scroll animation ──
+  // Each card sweeps: left-rotated → center-flat → right-rotated, staggered.
+  // Matches XP Agency FAME behavior exactly.
   (function() {
     var svc = document.getElementById('tv-services');
     if (!svc) return;
     var cards = Array.from(svc.querySelectorAll('.tvs-card'));
-    var n = cards.length; // 4
+    var N = cards.length; // 4
 
-    function ease(t) { return t < .5 ? 2*t*t : -1+(4-2*t)*t; }
+    // Per-card scroll window: 75% of total, offset by 8.33% per stagger index
+    var WINDOW = 0.75;
+    var STAGGER = (1 - WINDOW) / (N - 1); // 0.0833
 
-    // i=0: back card (04), i=3: front card (01)
-    // frontIdx=0 → front, frontIdx=3 → back
-    function getTransform(i, p) {
-      var fi = n - 1 - i;
-      var e = ease(p);
-      // start: stacked, rotated ~75deg, tiny stack offset
-      var sRY = 75, sTX = fi * -4, sTY = fi * 4;
-      // end: fan — slight angle, spread down-left
-      var eRY = 4 + fi * 1.5;  // 4 → 8.5 deg
-      var eRZ = fi * -4;         // 0 → -12 deg
-      var eTX = fi * -18;        // px spread left
-      var eTY = fi * 24;         // px spread down
-      return 'translateX('+(sTX+(eTX-sTX)*e).toFixed(1)+'px)'
-           + ' translateY('+(sTY+(eTY-sTY)*e).toFixed(1)+'px)'
-           + ' rotateY('+(sRY+(eRY-sRY)*e).toFixed(2)+'deg)'
-           + ' rotateZ('+(eRZ*e).toFixed(2)+'deg)';
+    // DOM order: cards[0]=04(back), cards[3]=01(front)
+    // Stagger index si: 0=front(01,animates first), 3=back(04,animates last)
+    // si = N-1-dom_i
+    // Start: TX=-(30+si*3.33)vw, TY=20vh, RY=80deg
+    // End:   TX=(40-si*3.33)vw,  TY=-20vh, RY=-80deg
+
+    function cardP(si, global) {
+      return Math.max(0, Math.min(1, (global - si * STAGGER) / WINDOW));
     }
 
     function update() {
       var rect = svc.getBoundingClientRect();
-      var raw = -rect.top / (svc.offsetHeight - window.innerHeight);
-      var p = Math.max(0, Math.min(1, raw));
-      cards.forEach(function(c, i) { c.style.transform = getTransform(i, p); });
+      var global = Math.max(0, Math.min(1, -rect.top / (svc.offsetHeight - window.innerHeight)));
+
+      cards.forEach(function(card, dom_i) {
+        var si = N - 1 - dom_i;
+        var p  = cardP(si, global);
+
+        var startTX = -(30 + si * 10/3);
+        var endTX   =  (40 - si * 10/3);
+        var tx = startTX + (endTX - startTX) * p;
+        var ty = 20  + (-40) * p;   // 20vh → -20vh
+        var ry = 80  + (-160) * p;  // 80deg → -80deg
+
+        card.style.transform = 'translateX(' + tx.toFixed(2) + 'vw)'
+          + ' translateY(' + ty.toFixed(2) + 'vh)'
+          + ' rotateY(' + ry.toFixed(2) + 'deg)'
+          + ' perspective(1200px)';
+        // Card most face-on gets highest z-index
+        card.style.zIndex = Math.round((90 - Math.abs(ry)) / 9);
+      });
     }
 
     window.addEventListener('scroll', update, {passive: true});
