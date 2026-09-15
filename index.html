@@ -146,9 +146,10 @@
     .tvp-btn{display:inline-block;background:rgb(70,28,130);border-radius:259px;padding:14px 30px;color:#fff;font-size:15px;font-family:'Inter',sans-serif;text-decoration:none;transition:background .2s;white-space:nowrap;flex-shrink:0}
     .tvp-btn:hover{background:rgb(90,42,160)}
     /* Carousel */
-    .tvp-carousel-outer{overflow:hidden;perspective:1200px}
+    .tvp-carousel-outer{overflow:hidden;perspective:1200px;cursor:grab}
+    .tvp-carousel-outer.dragging{cursor:grabbing}
     .tvp-carousel-3d{transform:rotateY(40deg);transform-origin:left center}
-    .tvp-ticker-list{display:flex;gap:20px;list-style:none;padding:0 0 0 60px;width:max-content;will-change:transform}
+    .tvp-ticker-list{display:flex;gap:20px;list-style:none;padding:0 0 0 60px;width:max-content;will-change:transform;user-select:none}
     .tvp-card{flex:0 0 400px;display:flex;flex-direction:column;gap:12px}
     .tvp-card-img{width:400px;height:279px;border-radius:14px;overflow:hidden;background:#111;flex-shrink:0}
     .tvp-card-img img{width:100%;height:100%;object-fit:cover;display:block}
@@ -433,23 +434,77 @@ var circle = document.getElementById('circleHero');
     }
   }
 
-  // Projects ticker (RAF-driven, no CSS animation inside perspective container)
+  // Projects ticker — RAF with drag-momentum
   var tvpTicker = document.getElementById('tvpTicker');
   if (tvpTicker) {
     var tvpPos = 0;
-    var tvpHalf = 0;
-    var tvpPaused = false;
-    function tvpGetHalf() {
-      // half = width of one set of 7 cards (400px each + 20px gap)
-      tvpHalf = 7 * (400 + 20);
+    var tvpHalf = 7 * 420; // 7 cards × (400px + 20px gap)
+    var tvpBaseVel = -0.6;  // auto-scroll speed (px/frame, negative = left)
+    var tvpVel = tvpBaseVel;
+    var tvpDragging = false;
+    var tvpLastX = 0, tvpLastTime = 0, tvpDragVel = 0;
+    var tvpOuter = tvpTicker.closest('.tvp-carousel-outer');
+
+    function tvpNorm() {
+      if (tvpPos <= -tvpHalf) tvpPos += tvpHalf;
+      if (tvpPos > 0) tvpPos -= tvpHalf;
     }
-    tvpGetHalf();
-    tvpTicker.parentElement.addEventListener('mouseenter', function(){ tvpPaused = true; });
-    tvpTicker.parentElement.addEventListener('mouseleave', function(){ tvpPaused = false; });
+
+    // Mouse
+    tvpOuter.addEventListener('mousedown', function(e) {
+      tvpDragging = true;
+      tvpLastX = e.clientX;
+      tvpLastTime = Date.now();
+      tvpDragVel = 0;
+      tvpOuter.classList.add('dragging');
+      e.preventDefault();
+    });
+    document.addEventListener('mousemove', function(e) {
+      if (!tvpDragging) return;
+      var now = Date.now(), dt = now - tvpLastTime, dx = e.clientX - tvpLastX;
+      if (dt > 0) tvpDragVel = dx / dt * 16; // convert to px/frame @60fps
+      tvpPos += dx;
+      tvpNorm();
+      tvpTicker.style.transform = 'translateX(' + tvpPos + 'px)';
+      tvpLastX = e.clientX;
+      tvpLastTime = now;
+    });
+    document.addEventListener('mouseup', function() {
+      if (!tvpDragging) return;
+      tvpDragging = false;
+      tvpOuter.classList.remove('dragging');
+      tvpVel = tvpDragVel; // inherit flick velocity
+    });
+
+    // Touch
+    tvpOuter.addEventListener('touchstart', function(e) {
+      tvpDragging = true;
+      tvpLastX = e.touches[0].clientX;
+      tvpLastTime = Date.now();
+      tvpDragVel = 0;
+    }, {passive: true});
+    document.addEventListener('touchmove', function(e) {
+      if (!tvpDragging) return;
+      var now = Date.now(), dt = now - tvpLastTime, dx = e.touches[0].clientX - tvpLastX;
+      if (dt > 0) tvpDragVel = dx / dt * 16;
+      tvpPos += dx;
+      tvpNorm();
+      tvpTicker.style.transform = 'translateX(' + tvpPos + 'px)';
+      tvpLastX = e.touches[0].clientX;
+      tvpLastTime = now;
+    }, {passive: true});
+    document.addEventListener('touchend', function() {
+      if (!tvpDragging) return;
+      tvpDragging = false;
+      tvpVel = tvpDragVel;
+    });
+
     function tvpFrame() {
-      if (!tvpPaused) {
-        tvpPos -= 0.6;
-        if (tvpPos <= -tvpHalf) tvpPos = 0;
+      if (!tvpDragging) {
+        // Ease velocity back toward base auto-scroll speed
+        tvpVel += (tvpBaseVel - tvpVel) * 0.04;
+        tvpPos += tvpVel;
+        tvpNorm();
         tvpTicker.style.transform = 'translateX(' + tvpPos + 'px)';
       }
       requestAnimationFrame(tvpFrame);
