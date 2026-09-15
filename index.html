@@ -125,6 +125,15 @@
     .tvh-blur-sphere{z-index:0;position:absolute;bottom:-5em;right:-2%;width:52%;height:20em;background:#FF2200;filter:blur(90px);border-radius:100%;pointer-events:none;transform:translateZ(0)}
     .tvh-bottom{position:absolute;bottom:0;left:0;right:0;padding:1.5em 2.2em;display:flex;justify-content:space-between;align-items:center;z-index:10}
     .tvh-scroll,.tvh-est{font-family:"PP Neue Montreal Regular","PP Neue Montreal Regular Placeholder",sans-serif;font-size:.82em;color:rgba(255,255,255,.55);letter-spacing:.03em}
+    /* Ticker */
+    #tv-clients{background:#f5f0e9;padding:40px 0 48px;overflow:hidden}
+    .tv-clients-label{font-family:"PP Supply Mono Regular",monospace;font-size:12px;font-weight:400;letter-spacing:-.02em;text-transform:uppercase;color:rgba(20,15,10,0.45);padding:0 48px 28px;display:flex;align-items:center;gap:8px}
+    .tv-ticker-wrap{overflow:hidden;mask-image:linear-gradient(to right,rgba(0,0,0,0) 0%,rgb(0,0,0) 10%,rgb(0,0,0) 90%,rgba(0,0,0,0) 100%);-webkit-mask-image:linear-gradient(to right,rgba(0,0,0,0) 0%,rgb(0,0,0) 10%,rgb(0,0,0) 90%,rgba(0,0,0,0) 100%)}
+    .tv-ticker-track{display:flex;align-items:center;gap:80px;width:max-content;animation:tv-ticker-scroll 28s linear infinite}
+    @keyframes tv-ticker-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .tv-ticker-track img{height:32px;width:auto;object-fit:contain;opacity:0.75;filter:grayscale(1) brightness(0.15)}
+    .tv-ticker-track img.invert{filter:grayscale(1) brightness(0) invert(1) brightness(0.15)}
+
     @media(max-width:991px){.tvh-heading{font-size:3.8em}.circle-hero{font-size:1em}}
     @media(max-width:767px){.tvh-grid{grid-template-columns:1fr}.tvh-block{align-items:flex-start}.tvh-heading{font-size:3em}.tvh-blur-top{left:10%;width:80%;top:-5em}.tvh-blur-sphere{width:38em;height:18em}#tv-hero-wrap{padding:8px 8px 0}}
     @media(max-width:479px){.tvh-section{padding-top:7em;padding-bottom:5em}.tvh-heading{font-size:2.4em}.tvh-sphere-wrap{min-height:22em}.circle-hero{font-size:.7em}}
@@ -207,6 +216,37 @@
     </div>
   </div>
 </div>
+
+<section id="tv-clients">
+  <div class="tv-clients-label">[ MOVING FORWARD ] &darr;</div>
+  <div class="tv-ticker-wrap">
+    <div class="tv-ticker-track">
+      <img src="https://framerusercontent.com/images/54ipZYE0Xs5Fw2s8RRC1Xw5MwOU.png" alt="KIMFU">
+      <img src="https://framerusercontent.com/images/jzNbMKEQfKGZWGyXkWyH9UEnY.png" alt="Enzo Drew">
+      <img src="https://framerusercontent.com/images/K18ubhU4pp49OY7JLgpFwvKV7lU.png" alt="Sidehit">
+      <img src="https://framerusercontent.com/images/t2JJSMOlfu93XD3jRMv9yDyUlsg.svg" alt="Boombox">
+      <img src="https://framerusercontent.com/images/sLzH4rMcDu6Hw2kF6Or04Y9g9BM.png" alt="Outside">
+      <img src="https://framerusercontent.com/images/UfWxvnwlpSLBegF6HT8zbaD9x8.svg" alt="Major">
+      <img src="https://framerusercontent.com/images/jY4sMQ7GRZcZ3BQUPxHlQlFWRo.png" alt="Red Bull Media House">
+      <img src="https://framerusercontent.com/images/ZEIRzgIUgMabY6yC9LPLhSecjI.svg" alt="MOM">
+      <img src="https://framerusercontent.com/images/kZ1lMKnqVwI2vV7w1cZd8LAhF3A.png" alt="">
+      <img src="https://framerusercontent.com/images/7olyNF6jt1pHqK4i1NueccN2nJo.png" alt="Guru">
+      <img src="https://framerusercontent.com/images/rRHDZtfhCB9WJxnnx5Kek57Pdw.png" alt="94.9">
+      <!-- duplicate for seamless loop -->
+      <img src="https://framerusercontent.com/images/54ipZYE0Xs5Fw2s8RRC1Xw5MwOU.png" alt="">
+      <img src="https://framerusercontent.com/images/jzNbMKEQfKGZWGyXkWyH9UEnY.png" alt="">
+      <img src="https://framerusercontent.com/images/K18ubhU4pp49OY7JLgpFwvKV7lU.png" alt="">
+      <img src="https://framerusercontent.com/images/t2JJSMOlfu93XD3jRMv9yDyUlsg.svg" alt="">
+      <img src="https://framerusercontent.com/images/sLzH4rMcDu6Hw2kF6Or04Y9g9BM.png" alt="">
+      <img src="https://framerusercontent.com/images/UfWxvnwlpSLBegF6HT8zbaD9x8.svg" alt="">
+      <img src="https://framerusercontent.com/images/jY4sMQ7GRZcZ3BQUPxHlQlFWRo.png" alt="">
+      <img src="https://framerusercontent.com/images/ZEIRzgIUgMabY6yC9LPLhSecjI.svg" alt="">
+      <img src="https://framerusercontent.com/images/kZ1lMKnqVwI2vV7w1cZd8LAhF3A.png" alt="">
+      <img src="https://framerusercontent.com/images/7olyNF6jt1pHqK4i1NueccN2nJo.png" alt="">
+      <img src="https://framerusercontent.com/images/rRHDZtfhCB9WJxnnx5Kek57Pdw.png" alt="">
+    </div>
+  </div>
+</section>
 
 <script>
   var hb = document.getElementById('hamburger');
