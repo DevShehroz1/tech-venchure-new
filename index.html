@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tech Venchure — AI-Powered Marketing &amp; Brand Growth</title>
   <link rel="icon" type="image/png" href="/assets/tv-favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
   <style>
     @font-face { font-family: "PP Neue Montreal Regular"; src: url("https://framerusercontent.com/assets/Vgooyn5UgzxUXCAvebdulHCfXA.woff2") format("woff2"); font-display: swap; font-weight: 400; }
     @font-face { font-family: "PP Neue Montreal Medium"; src: url("https://framerusercontent.com/assets/gFY5sT08OJzaVKejDc8tZ3kRgFo.woff2") format("woff2"); font-display: swap; font-weight: 500; }
@@ -162,6 +163,66 @@
     @media(max-width:991px){.tvh-heading{font-size:3.8em}.circle-hero{font-size:1em}}
     @media(max-width:767px){.tvh-grid{grid-template-columns:1fr}.tvh-block{align-items:flex-start}.tvh-heading{font-size:3em}.tvh-blur-top{left:10%;width:80%;top:-5em}.tvh-blur-sphere{width:38em;height:18em}#tv-hero-wrap{padding:8px 8px 0}}
     @media(max-width:479px){.tvh-section{padding-top:7em;padding-bottom:5em}.tvh-heading{font-size:2.4em}.tvh-sphere-wrap{min-height:22em}.circle-hero{font-size:.7em}}
+
+    /* ── Services Section ── */
+    #tv-services { position: relative; height: 400vh; }
+    .tvs-sticky {
+      position: sticky; top: 0; height: 100vh;
+      background: #461c82;
+      overflow: hidden;
+    }
+    .tvs-cards-wrap {
+      position: absolute;
+      left: 5vw; bottom: 10vh;
+      perspective: 1200px;
+      transform-style: preserve-3d;
+      width: 260px; height: 360px;
+    }
+    .tvs-card {
+      position: absolute; inset: 0;
+      background: #0d0d0d;
+      border-radius: 16px;
+      padding: 22px 22px 26px;
+      display: flex; flex-direction: column;
+      border: 1px solid rgba(255,255,255,0.07);
+      backface-visibility: hidden;
+      will-change: transform;
+    }
+    .tvs-card:nth-child(1){z-index:1}
+    .tvs-card:nth-child(2){z-index:2}
+    .tvs-card:nth-child(3){z-index:3}
+    .tvs-card:nth-child(4){z-index:4}
+    .tvs-num {
+      font-family: 'PP Supply Mono Regular', monospace;
+      font-size: 12px; letter-spacing: .05em;
+      color: #9b55ff;
+    }
+    .tvs-letter {
+      flex: 1; display: flex; align-items: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 130px; line-height: 1;
+      color: #fff;
+    }
+    .tvs-label {
+      font-family: 'PP Neue Montreal Regular', sans-serif;
+      font-size: 16px; letter-spacing: -.01em;
+      color: rgba(255,255,255,0.88);
+    }
+    .tvs-heading-wrap {
+      position: absolute;
+      right: 8%; top: 50%;
+      transform: translateY(-50%);
+    }
+    .tvs-heading-wrap h2 {
+      font-family: 'PP Neue Montreal Medium', sans-serif;
+      font-size: clamp(60px, 8vw, 116px);
+      font-weight: 500; color: #fff;
+      line-height: 1; letter-spacing: -.03em;
+    }
+    @media(max-width:767px){
+      .tvs-cards-wrap { left: 50%; bottom: 6vh; transform: translateX(-50%); }
+      .tvs-heading-wrap { right: auto; left: 50%; top: 28%; transform: translate(-50%, -50%); text-align: center; }
+    }
   </style>
 </head>
 <body>
@@ -370,6 +431,39 @@
   </div>
 </section>
 
+<!-- ── Our Services ── -->
+<section id="tv-services">
+  <div class="tvs-sticky" id="tvsSticky">
+    <div class="tvs-cards-wrap" id="tvsCardsWrap">
+      <!-- back card first in DOM -->
+      <div class="tvs-card">
+        <span class="tvs-num">04</span>
+        <span class="tvs-letter">S</span>
+        <span class="tvs-label">Social Media</span>
+      </div>
+      <div class="tvs-card">
+        <span class="tvs-num">03</span>
+        <span class="tvs-letter">W</span>
+        <span class="tvs-label">Web Design</span>
+      </div>
+      <div class="tvs-card">
+        <span class="tvs-num">02</span>
+        <span class="tvs-letter">B</span>
+        <span class="tvs-label">Branding</span>
+      </div>
+      <!-- front card -->
+      <div class="tvs-card">
+        <span class="tvs-num">01</span>
+        <span class="tvs-letter">A</span>
+        <span class="tvs-label">AI Marketing</span>
+      </div>
+    </div>
+    <div class="tvs-heading-wrap">
+      <h2>Our<br>Services</h2>
+    </div>
+  </div>
+</section>
+
 <script>
   var hb = document.getElementById('hamburger');
   var mm = document.getElementById('mobileMenu');
@@ -511,6 +605,45 @@ var circle = document.getElementById('circleHero');
     }
     requestAnimationFrame(tvpFrame);
   }
+
+  // ── Services cards scroll animation ──
+  (function() {
+    var svc = document.getElementById('tv-services');
+    if (!svc) return;
+    var cards = Array.from(svc.querySelectorAll('.tvs-card'));
+    var n = cards.length; // 4
+
+    function ease(t) { return t < .5 ? 2*t*t : -1+(4-2*t)*t; }
+
+    // i=0: back card (04), i=3: front card (01)
+    // frontIdx=0 → front, frontIdx=3 → back
+    function getTransform(i, p) {
+      var fi = n - 1 - i;
+      var e = ease(p);
+      // start: stacked, rotated ~75deg, tiny stack offset
+      var sRY = 75, sTX = fi * -4, sTY = fi * 4;
+      // end: fan — slight angle, spread down-left
+      var eRY = 4 + fi * 1.5;  // 4 → 8.5 deg
+      var eRZ = fi * -4;         // 0 → -12 deg
+      var eTX = fi * -18;        // px spread left
+      var eTY = fi * 24;         // px spread down
+      return 'translateX('+(sTX+(eTX-sTX)*e).toFixed(1)+'px)'
+           + ' translateY('+(sTY+(eTY-sTY)*e).toFixed(1)+'px)'
+           + ' rotateY('+(sRY+(eRY-sRY)*e).toFixed(2)+'deg)'
+           + ' rotateZ('+(eRZ*e).toFixed(2)+'deg)';
+    }
+
+    function update() {
+      var rect = svc.getBoundingClientRect();
+      var raw = -rect.top / (svc.offsetHeight - window.innerHeight);
+      var p = Math.max(0, Math.min(1, raw));
+      cards.forEach(function(c, i) { c.style.transform = getTransform(i, p); });
+    }
+
+    window.addEventListener('scroll', update, {passive: true});
+    window.addEventListener('resize', update);
+    update();
+  }());
 </script>
 
 </body>
