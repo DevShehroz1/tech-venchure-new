@@ -17,106 +17,11 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    .nav {
-      position: fixed;
-      top: 32px; left: 40px; right: 40px;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 88px;
-      padding: 0 24px 0 20px;
-      background: transparent;
-      font-family: "PP Neue Montreal Regular", sans-serif;
-    }
-
-    .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
-    .nav-logo img { height: 36px; width: auto; }
-
-    .nav-links {
-      display: flex; align-items: center; gap: 36px; list-style: none;
-      position: absolute; left: 50%; transform: translateX(-50%);
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: rgba(255,255,255,0.75);
-      font-family: "PP Neue Montreal Regular", sans-serif;
-      font-size: 15px; font-weight: 400;
-      letter-spacing: 0.04em;
-      white-space: nowrap; transition: color 0.2s;
-    }
-    .nav-links a:hover { color: #fff; }
-
-    .nav-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-
-    .btn-lang {
-      display: flex; align-items: center; gap: 6px;
-      color: rgba(255,255,255,0.75);
-      font-family: "PP Neue Montreal Regular", sans-serif;
-      font-size: 14px; font-weight: 400; letter-spacing: 0.04em;
-      border: none; background: transparent; cursor: pointer;
-      transition: color 0.2s;
-    }
-    .btn-lang:hover { color: #fff; }
-    .btn-lang svg { width: 14px; height: 14px; flex-shrink: 0; }
-
-    .btn-estimate {
-      display: inline-flex; align-items: center; gap: .45em;
-      color: #fff; font-family: "PP Neue Montreal Regular", sans-serif;
-      font-size: .88em; font-weight: 500;
-      letter-spacing: .08em; text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,.32); border-radius: 10px;
-      padding: .85em 1.5em; background: rgba(8,8,8,.55); cursor: pointer;
-      text-decoration: none; white-space: nowrap; line-height: 1.2em;
-      transition: background .2s, border-color .2s;
-    }
-    .btn-estimate:hover { background: rgba(30,30,30,.75); border-color: rgba(255,255,255,.6); }
-
-    .nav-hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      cursor: pointer; background: none; border: none; padding: 4px;
-    }
-    .nav-hamburger span {
-      display: block; width: 22px; height: 1.5px;
-      background: #fff; border-radius: 2px;
-      transition: transform 0.25s, opacity 0.25s;
-    }
-
-    .nav-mobile {
-      display: none;
-      position: fixed; top: 128px; left: 40px; right: 40px; z-index: 999;
-      background: rgba(8,8,8,0.97);
-      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255,255,255,0.10); border-radius: 14px;
-      padding: 20px; flex-direction: column;
-    }
-    .nav-mobile.open { display: flex; }
-    .nav-mobile a {
-      text-decoration: none; color: rgba(255,255,255,0.75);
-      font-family: "PP Neue Montreal Regular", sans-serif;
-      font-size: 15px; font-weight: 400; letter-spacing: 0.04em;
-      padding: 13px 8px; border-bottom: 1px solid rgba(255,255,255,0.07);
-      transition: color 0.2s;
-    }
-    .nav-mobile a:last-child { border-bottom: none; }
-    .nav-mobile a:hover { color: #fff; }
-
-    @media (max-width: 900px) {
-      .nav-links { display: none; }
-      .btn-lang { display: none; }
-      .nav-hamburger { display: flex; }
-    }
-    @media (max-width: 480px) {
-      .nav { left: 10px; right: 10px; top: 14px; height: 64px; }
-      .nav-mobile { left: 10px; right: 10px; top: 86px; }
-      .btn-estimate { font-size: 10.5px; padding: 6px 11px; }
-    }
-
     /* TV Hero */
     :root{--tvh-c1:#ff7b00;--tvh-c2:rgba(0,0,0,.7);--tvh-cb:rgba(255,255,255,.15);--tvh-ca:#fff}
     #tv-hero-wrap{padding:14px;width:100%;box-sizing:border-box}
     #tv-hero{background:#000;border-radius:20px;overflow:hidden;position:relative;min-height:100svh;display:flex;flex-direction:column;font-size:16px;transform:translateZ(0);contain:layout paint}
-    .tvh-section{flex:1;display:flex;justify-content:flex-start;align-items:center;padding:14em 2.5em 6em 4.5em;position:relative;z-index:1}
+    .tvh-section{flex:1;display:flex;justify-content:flex-start;align-items:center;padding:8em 2.5em 6em 4.5em;position:relative;z-index:1}
     .tvh-content{width:100%;max-width:75em}
     .tvh-grid{display:grid;grid-template-columns:1fr;gap:0;padding:0 0.5em}
     .tvh-block{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:2em;position:relative;z-index:50}
@@ -154,43 +59,6 @@
 </head>
 <body>
 
-<nav class="nav" id="nav">
-  <a class="nav-logo" href="/">
-    <img src="/assets/techvenchure-logo.png" alt="Tech Venchure">
-  </a>
-
-  <ul class="nav-links">
-    <li><a href="#">Work</a></li>
-    <li><a href="#">Services</a></li>
-    <li><a href="#">About Us</a></li>
-    <li><a href="#">Motion Index</a></li>
-    <li><a href="#">Store</a></li>
-  </ul>
-
-  <div class="nav-actions">
-    <button class="btn-lang" aria-label="Language">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M2 12h20"/>
-        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-      </svg>
-      EN
-    </button>
-    <a class="btn-estimate" href="#">GET AN ESTIMATE &nbsp;&#8594;</a>
-    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-
-<div class="nav-mobile" id="mobileMenu">
-  <a href="#">Work</a>
-  <a href="#">Services</a>
-  <a href="#">About Us</a>
-  <a href="#">Motion Index</a>
-  <a href="#">Store</a>
-  <a href="#" style="color:#ff6b00;border-bottom:none;margin-top:8px">Get an Estimate &#8594;</a>
-</div>
 
 <div id="tv-hero-wrap">
   <div id="tv-hero">
@@ -235,26 +103,7 @@
 </div>
 
 <script>
-  var nav = document.getElementById('nav');
-  window.addEventListener('scroll', function() {
-    nav.classList.toggle('scrolled', window.scrollY > 20);
-  }, { passive: true });
-
-  var hb = document.getElementById('hamburger');
-  var mm = document.getElementById('mobileMenu');
-  hb.addEventListener('click', function() {
-    mm.classList.toggle('open');
-    var s = hb.querySelectorAll('span');
-    if (mm.classList.contains('open')) {
-      s[0].style.transform = 'translateY(6.5px) rotate(45deg)';
-      s[1].style.opacity = '0';
-      s[2].style.transform = 'translateY(-6.5px) rotate(-45deg)';
-    } else {
-      s[0].style.transform = s[1].style.opacity = s[2].style.transform = '';
-    }
-  });
-
-  var circle = document.getElementById('circleHero');
+var circle = document.getElementById('circleHero');
   if (circle) {
     var cur = {rx:60,ry:26,rz:0,ty:-10}, tgt = {rx:60,ry:26,rz:0,ty:-10};
     var rafId = null;
