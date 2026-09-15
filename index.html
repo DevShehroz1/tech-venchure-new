@@ -144,8 +144,8 @@
     .tvp-heading{font-family:'Inter',sans-serif;font-size:80px;font-weight:700;color:#fff;line-height:1;letter-spacing:-0.04em;margin:0}
     .tvp-count{font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.45);letter-spacing:0;align-self:flex-end;padding-bottom:12px}
     .tvp-desc{color:rgba(255,255,255,0.45);font-family:'PP Neue Montreal Regular',sans-serif;font-size:15px;line-height:1.65;max-width:380px;margin:0}
-    .tvp-btn{display:inline-block;background:rgb(70,28,130);border-radius:259px;padding:14px 30px;color:#fff;font-size:15px;font-family:'Inter',sans-serif;text-decoration:none;transition:background .2s;white-space:nowrap;flex-shrink:0}
-    .tvp-btn:hover{background:rgb(90,42,160)}
+    .tvp-btn{display:inline-block;background:linear-gradient(20deg,#ff2200,#ff8800);border-radius:259px;padding:14px 30px;color:#fff;font-size:15px;font-family:'Inter',sans-serif;text-decoration:none;transition:filter .2s;white-space:nowrap;flex-shrink:0}
+    .tvp-btn:hover{filter:brightness(1.12)}
     /* Carousel */
     .tvp-carousel-outer{overflow:hidden;perspective:1200px;cursor:grab}
     .tvp-carousel-outer.dragging{cursor:grabbing}
@@ -199,10 +199,8 @@
     }
     .tvs-letter {
       flex: 1; display: flex; align-items: center; justify-content: center;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 180px; line-height: 1;
-      color: #fff; text-align: center;
     }
+    .tvs-letter img { max-height: 78%; max-width: 78%; object-fit: contain; }
     .tvs-label {
       font-family: 'PP Neue Montreal Medium', sans-serif;
       font-size: 18px; letter-spacing: -.01em; font-weight: 500;
@@ -226,7 +224,6 @@
     }
     @media(max-width:767px){
       .tvs-cards-wrap { margin-left: -130px; margin-top: -185px; width: 260px; height: 370px; }
-      .tvs-letter { font-size: 140px; }
       .tvs-heading-wrap h2 { font-size: clamp(52px, 12vw, 80px); white-space: normal; text-align: center; }
     }
   </style>
@@ -444,24 +441,24 @@
       <!-- back card first in DOM -->
       <div class="tvs-card">
         <span class="tvs-num">04</span>
-        <span class="tvs-letter">S</span>
-        <span class="tvs-label">Social Media</span>
+        <span class="tvs-letter"><img src="assets/card-ci.png" alt="Corporate Identity"></span>
+        <span class="tvs-label">Corporate Identity</span>
       </div>
       <div class="tvs-card">
         <span class="tvs-num">03</span>
-        <span class="tvs-letter">W</span>
-        <span class="tvs-label">Web Design</span>
+        <span class="tvs-letter"><img src="assets/card-marketing.png" alt="Marketing"></span>
+        <span class="tvs-label">Marketing</span>
       </div>
       <div class="tvs-card">
         <span class="tvs-num">02</span>
-        <span class="tvs-letter">B</span>
-        <span class="tvs-label">Branding</span>
+        <span class="tvs-letter"><img src="assets/card-shopify.png" alt="Shopify"></span>
+        <span class="tvs-label">Shopify</span>
       </div>
       <!-- front card -->
       <div class="tvs-card">
         <span class="tvs-num">01</span>
-        <span class="tvs-letter">A</span>
-        <span class="tvs-label">AI Marketing</span>
+        <span class="tvs-letter"><img src="assets/card-webdesign.png" alt="Web Design"></span>
+        <span class="tvs-label">Web Design</span>
       </div>
     </div>
     <div class="tvs-heading-wrap">
