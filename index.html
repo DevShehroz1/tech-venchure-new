@@ -26,29 +26,9 @@
       justify-content: space-between;
       height: 88px;
       padding: 0 24px 0 20px;
-      background: linear-gradient(135deg, rgba(80,38,10,0.58) 0%, rgba(50,20,4,0.66) 100%);
-      backdrop-filter: blur(20px) brightness(1.15) saturate(130%);
-      -webkit-backdrop-filter: blur(20px) brightness(1.15) saturate(130%);
-      border: none;
-      border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.35), 0 1px 0 rgba(255,180,80,0.28) inset, 0 0 0 0.5px rgba(255,255,255,0.06) inset;
-      transition: background 0.3s;
-      font-family: "PP Supply Mono Regular", monospace;
+      background: transparent;
+      font-family: "PP Neue Montreal Regular", sans-serif;
     }
-    .nav::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 16px;
-      padding: 1px;
-      background: linear-gradient(135deg, rgba(255,140,30,0.65) 0%, rgba(255,70,10,0.28) 40%, rgba(255,255,255,0.08) 65%, rgba(255,120,20,0.35) 100%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-    }
-    .nav.scrolled { background: linear-gradient(135deg, rgba(55,24,6,0.78) 0%, rgba(30,10,2,0.88) 100%); }
 
     .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
     .nav-logo img { height: 36px; width: auto; }
@@ -60,9 +40,9 @@
     .nav-links a {
       text-decoration: none;
       color: rgba(255,255,255,0.75);
-      font-family: "PP Supply Mono Regular", monospace;
-      font-size: 13px; font-weight: 400;
-      letter-spacing: 0.1em; text-transform: uppercase;
+      font-family: "PP Neue Montreal Regular", sans-serif;
+      font-size: 15px; font-weight: 400;
+      letter-spacing: 0.04em;
       white-space: nowrap; transition: color 0.2s;
     }
     .nav-links a:hover { color: #fff; }
@@ -71,27 +51,26 @@
 
     .btn-lang {
       display: flex; align-items: center; gap: 6px;
-      color: rgba(255,255,255,0.8);
-      font-family: "PP Supply Mono Regular", monospace;
-      font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,0.22); border-radius: 8px;
-      padding: 7px 12px; background: transparent; cursor: pointer;
-      transition: border-color 0.2s, color 0.2s;
+      color: rgba(255,255,255,0.75);
+      font-family: "PP Neue Montreal Regular", sans-serif;
+      font-size: 14px; font-weight: 400; letter-spacing: 0.04em;
+      border: none; background: transparent; cursor: pointer;
+      transition: color 0.2s;
     }
-    .btn-lang:hover { border-color: rgba(255,255,255,0.45); color: #fff; }
-    .btn-lang svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .btn-lang:hover { color: #fff; }
+    .btn-lang svg { width: 14px; height: 14px; flex-shrink: 0; }
 
     .btn-estimate {
-      display: flex; align-items: center; gap: 8px;
-      color: #fff; font-family: "PP Supply Mono Regular", monospace;
-      font-size: 12px; font-weight: 400;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,0.30); border-radius: 8px;
-      padding: 7px 16px; background: transparent; cursor: pointer;
-      text-decoration: none; white-space: nowrap;
-      transition: background 0.2s, border-color 0.2s;
+      display: inline-flex; align-items: center; gap: .45em;
+      color: #fff; font-family: "PP Neue Montreal Regular", sans-serif;
+      font-size: .88em; font-weight: 500;
+      letter-spacing: .08em; text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,.32); border-radius: 10px;
+      padding: .85em 1.5em; background: rgba(8,8,8,.55); cursor: pointer;
+      text-decoration: none; white-space: nowrap; line-height: 1.2em;
+      transition: background .2s, border-color .2s;
     }
-    .btn-estimate:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.55); }
+    .btn-estimate:hover { background: rgba(30,30,30,.75); border-color: rgba(255,255,255,.6); }
 
     .nav-hamburger {
       display: none; flex-direction: column; gap: 5px;
@@ -114,7 +93,8 @@
     .nav-mobile.open { display: flex; }
     .nav-mobile a {
       text-decoration: none; color: rgba(255,255,255,0.75);
-      font-size: 14px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+      font-family: "PP Neue Montreal Regular", sans-serif;
+      font-size: 15px; font-weight: 400; letter-spacing: 0.04em;
       padding: 13px 8px; border-bottom: 1px solid rgba(255,255,255,0.07);
       transition: color 0.2s;
     }
