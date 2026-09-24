@@ -54,10 +54,13 @@
       font-family: "PP Supply Mono Regular", monospace;
       font-size: 15px; font-weight: 400;
       letter-spacing: -0.02em; text-transform: uppercase;
-      line-height: 1.3em;
-      white-space: nowrap; transition: color 0.2s;
+      line-height: 1.3em; white-space: nowrap;
+      display: inline-block; overflow: hidden; height: 1.3em;
+      transition: color 0.25s;
     }
     .nav-links a:hover { color: #fff; }
+    .nav-links a span { display: block; transition: transform 0.42s cubic-bezier(0.76,0,0.24,1); }
+    .nav-links a:hover span { transform: translateY(-100%); }
     .nav-actions { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
     .btn-lang {
       display: flex; align-items: center; gap: 5px;
@@ -274,11 +277,10 @@
     <img src="/assets/techvenchure-logo.png" alt="Tech Venchure">
   </a>
   <ul class="nav-links">
-    <li><a href="#">Work</a></li>
-    <li><a href="#">Services</a></li>
-    <li><a href="#">About Us</a></li>
-    <li><a href="#">Motion Index</a></li>
-    <li><a href="#">Store</a></li>
+    <li><a href="#tv-hero-wrap"><span>Home</span><span>Home</span></a></li>
+    <li><a href="#tv-gp"><span>About Us</span><span>About Us</span></a></li>
+    <li><a href="#tv-services"><span>Services</span><span>Services</span></a></li>
+    <li><a href="#tv-ww"><span>Projects</span><span>Projects</span></a></li>
   </ul>
   <div class="nav-actions">
     <button class="btn-lang" aria-label="Language" data-magnetic>
@@ -295,11 +297,10 @@
 </nav>
 
 <div class="nav-mobile" id="mobileMenu">
-  <a href="#">Work</a>
-  <a href="#">Services</a>
-  <a href="#">About Us</a>
-  <a href="#">Motion Index</a>
-  <a href="#">Store</a>
+  <a href="#tv-hero-wrap">Home</a>
+  <a href="#tv-gp">About Us</a>
+  <a href="#tv-services">Services</a>
+  <a href="#tv-ww">Projects</a>
   <a href="#" style="color:#ff6b00;border-bottom:none;margin-top:8px">Get an Estimate &#8594;</a>
 </div>
 
@@ -724,15 +725,15 @@
     }
     /* accordion */
     .tvfaq-item {
-      border: 1px solid rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,60,20,0.32);
       border-radius: 16px;
       margin-bottom: 16px;
       overflow: hidden;
       background: rgba(255,255,255,0.02);
-      transition: border-color 0.25s;
     }
     .tvfaq-item.open {
-      border-color: rgba(255,60,20,0.35);
+      border-color: rgba(255,60,20,0.65);
+      background: rgba(255,40,10,0.04);
     }
     .tvfaq-q {
       width: 100%;
@@ -963,10 +964,17 @@
       font-size: 14px;
       color: rgba(245,240,233,0.45);
       text-decoration: none;
-      line-height: 1.4;
-      transition: color 0.2s;
+      line-height: 1.55;
+      transition: color 0.25s;
     }
+    .tvf-col-links a {
+      display: inline-block;
+      overflow: hidden;
+      height: 1.55em;
+    }
+    .tvf-col-links a span { display: block; transition: transform 0.42s cubic-bezier(0.76,0,0.24,1); }
     .tvf-col-links a:hover { color: #f5f0e9; }
+    .tvf-col-links a:hover span { transform: translateY(-100%); }
     /* flame band canvas */
     #tvf-flame {
       position: absolute;
@@ -1037,20 +1045,20 @@
       <div class="tvf-col">
         <p class="tvf-col-title">Sitemap</p>
         <div class="tvf-col-links">
-          <a href="#">Services</a>
-          <a href="#">Our Work</a>
-          <a href="#">About Us</a>
-          <a href="#">Contact</a>
-          <a href="#">Careers</a>
+          <a href="#tv-services"><span>Services</span><span>Services</span></a>
+          <a href="#tv-ww"><span>Our Work</span><span>Our Work</span></a>
+          <a href="#tv-gp"><span>About Us</span><span>About Us</span></a>
+          <a href="#tv-faq"><span>Contact</span><span>Contact</span></a>
+          <a href="#"><span>Careers</span><span>Careers</span></a>
         </div>
       </div>
       <!-- Other Pages -->
       <div class="tvf-col">
         <p class="tvf-col-title">Other Pages</p>
         <div class="tvf-col-links">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms &amp; Conditions</a>
-          <a href="#">Cookie Policy</a>
+          <a href="#"><span>Privacy Policy</span><span>Privacy Policy</span></a>
+          <a href="#"><span>Terms &amp; Conditions</span><span>Terms &amp; Conditions</span></a>
+          <a href="#"><span>Cookie Policy</span><span>Cookie Policy</span></a>
         </div>
       </div>
       <!-- Contact Details -->
@@ -1556,14 +1564,14 @@ var circle = document.getElementById('circleHero');
     var CARD_H=0.38,CARD_MAX_W=0.34,CARD_RATIO=1.45,STEP=40,DRUM=2.22,LENS=2.7,RING_R=1.14;
     var BOW=1.82,TITLE_F=0.124,INDEX_F=0.04,CULL=1.6,DRAG_UNITS=420,EASE=0.1;
     var items=[
-      {title:'Pebble Life',image:'assets/proj-pebble.jpg',href:'#'},
-      {title:'Fane Barber',image:'assets/proj-fane.png',href:'#'},
-      {title:'AJEX',image:'assets/proj-ajex.png',href:'#'},
-      {title:'Nova TLT',image:'assets/proj-nova.png',href:'#'},
-      {title:'Cyan Waterpark',image:'assets/proj-cyan.png',href:'#'},
-      {title:'Perspective',image:'assets/proj-perspective.png',href:'#'},
-      {title:'Hissn Engineering',image:'assets/proj-hissn.png',href:'#'},
-      {title:'Just Waqt',image:'assets/proj-justwaqt.png',href:'#'}
+      {title:'Pebble Life',image:'assets/proj-pebble-opt.jpg',href:'#'},
+      {title:'Fane Barber',image:'assets/proj-fane-opt.jpg',href:'#'},
+      {title:'AJEX',image:'assets/proj-ajex-opt.jpg',href:'#'},
+      {title:'Nova TLT',image:'assets/proj-nova-opt.jpg',href:'#'},
+      {title:'Cyan Waterpark',image:'assets/proj-cyan-opt.jpg',href:'#'},
+      {title:'Perspective',image:'assets/proj-perspective-opt.jpg',href:'#'},
+      {title:'Hissn Engineering',image:'assets/proj-hissn-opt.jpg',href:'#'},
+      {title:'Just Waqt',image:'assets/proj-justwaqt-opt.jpg',href:'#'}
     ];
     var clamp=function(v,lo,hi){return Math.min(hi,Math.max(lo,v));};
     var lerpF=function(a,b,t){return a+(b-a)*t;};
