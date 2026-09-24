@@ -88,25 +88,53 @@
     .btn-estimate:hover { background: #ddd7cf; }
     .nav-hamburger {
       display: none; flex-direction: column; gap: 5px;
-      cursor: pointer; background: none; border: none; padding: 4px;
+      cursor: pointer; background: none; border: none; padding: 4px; flex-shrink: 0; z-index: 2;
     }
     .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: rgba(255,255,255,0.8); border-radius: 2px; transition: transform 0.25s, opacity 0.25s; }
-    .nav-mobile {
-      display: none; position: fixed; top: 108px; left: 40px; right: 40px; z-index: 999;
-      background: rgba(8,8,8,0.97); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255,255,255,0.10); border-radius: 14px; padding: 20px; flex-direction: column;
+    .btn-mobile-cta {
+      display: none; align-items: center;
+      color: rgba(20,15,10,0.85); font-family: "PP Supply Mono Regular", monospace;
+      font-size: 11px; font-weight: 400; letter-spacing: -0.01em; text-transform: uppercase;
+      border: none; border-radius: 8px; padding: 8px 12px; background: #EDE7DF;
+      text-decoration: none; white-space: nowrap; flex-shrink: 0; z-index: 2;
+      transition: background .2s;
     }
-    .nav-mobile.open { display: flex; }
+    .btn-mobile-cta:hover { background: #ddd7cf; }
+    /* Left drawer */
+    .nav-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      z-index: 998; backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+    }
+    .nav-overlay.open { display: block; }
+    .nav-mobile {
+      position: fixed; top: 0; left: 0; bottom: 0; width: 280px; z-index: 999;
+      background: rgba(10,10,10,0.98); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-right: 1px solid rgba(255,255,255,0.08);
+      padding: 80px 24px 40px; flex-direction: column;
+      transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+      display: flex;
+    }
+    .nav-mobile.open { transform: translateX(0); }
     .nav-mobile a {
-      text-decoration: none; color: rgba(255,255,255,0.75);
+      text-decoration: none; color: rgba(255,255,255,0.65);
       font-family: "PP Neue Montreal Regular", sans-serif;
-      font-size: 15px; font-weight: 400; letter-spacing: 0.02em;
-      padding: 13px 8px; border-bottom: 1px solid rgba(255,255,255,0.07); transition: color 0.2s;
+      font-size: 18px; font-weight: 400; letter-spacing: -0.01em;
+      padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.2s;
     }
     .nav-mobile a:last-child { border-bottom: none; }
     .nav-mobile a:hover { color: #fff; }
-    @media (max-width: 900px) { .nav-links { display: none; } .nav-hamburger { display: flex; } }
-    @media (max-width: 480px) { .nav { left: 10px; right: 10px; top: 12px; height: 60px; } .nav-mobile { left: 10px; right: 10px; } .btn-estimate { font-size: 10.5px; padding: 6px 11px; } }
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-actions { display: none; }
+      .nav-hamburger { display: flex; }
+      .btn-mobile-cta { display: inline-flex; }
+      .nav-logo { position: absolute; left: 50%; transform: translateX(-50%); }
+      .nav { justify-content: space-between; }
+    }
+    @media (max-width: 480px) {
+      .nav { left: 10px; right: 10px; top: 12px; height: 60px; }
+      .nav-logo img { height: 36px; }
+    }
 
     /* TV Hero */
     :root{--tvh-c1:#ff7b00;--tvh-c2:rgba(0,0,0,.7);--tvh-cb:rgba(255,255,255,.15);--tvh-ca:#fff}
@@ -274,6 +302,9 @@
 <div id="mc-cursor"></div>
 
 <nav class="nav" id="nav">
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
   <a class="nav-logo" href="/">
     <img src="/assets/techvenchure-logo.png" alt="Tech Venchure">
   </a>
@@ -291,12 +322,11 @@
       EN
     </button>
     <a class="btn-estimate" href="#" data-magnetic>GET AN ESTIMATE &nbsp;&#8594;</a>
-    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
   </div>
+  <a class="btn-mobile-cta" href="#">CONTACT &#8594;</a>
 </nav>
 
+<div class="nav-overlay" id="navOverlay"></div>
 <div class="nav-mobile" id="mobileMenu">
   <a href="#tv-hero-wrap">Home</a>
   <a href="#tv-gp">About Us</a>
@@ -1101,11 +1131,20 @@
 <script>
   var hb = document.getElementById('hamburger');
   var mm = document.getElementById('mobileMenu');
+  var ov = document.getElementById('navOverlay');
+  function closeDrawer() {
+    mm.classList.remove('open');
+    if (ov) ov.classList.remove('open');
+    var s = hb.querySelectorAll('span');
+    s[0].style.transform = s[2].style.transform = '';
+    s[1].style.opacity = '';
+  }
   if (hb && mm) {
     hb.addEventListener('click', function() {
-      mm.classList.toggle('open');
+      var isOpen = mm.classList.toggle('open');
+      if (ov) ov.classList.toggle('open', isOpen);
       var s = hb.querySelectorAll('span');
-      if (mm.classList.contains('open')) {
+      if (isOpen) {
         s[0].style.transform = 'translateY(6.5px) rotate(45deg)';
         s[1].style.opacity = '0';
         s[2].style.transform = 'translateY(-6.5px) rotate(-45deg)';
@@ -1113,6 +1152,8 @@
         s[0].style.transform = s[1].style.opacity = s[2].style.transform = '';
       }
     });
+    if (ov) ov.addEventListener('click', closeDrawer);
+    mm.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeDrawer); });
   }
 
 var circle = document.getElementById('circleHero');
