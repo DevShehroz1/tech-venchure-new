@@ -666,6 +666,528 @@
   </div>
 </section>
 
+<!-- ======================================================
+     FOOTER CTA — doom-fire canvas effect (pure JS/canvas)
+     Brand palette: dark #0d0d0d, orange #ff4400→#ff8800
+     ====================================================== -->
+<footer id="tv-footer">
+  <style>
+    #tv-footer {
+      position: relative;
+      overflow: hidden;
+      background: #0d0d0d;
+      background: radial-gradient(90% 70% at 50% 100%, #1a0a00 0%, #110500 45%, #0d0d0d 100%);
+      color: #f5f0e9;
+      font-family: "PP Neue Montreal Regular", sans-serif;
+    }
+    #tvf-inner {
+      position: relative;
+      z-index: 10;
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 96px 24px 40px;
+    }
+    #tvf-eyebrow {
+      font-family: "PP Supply Mono Regular", monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,100,20,0.75);
+    }
+    #tvf-heading {
+      margin-top: 18px;
+      font-family: "PP Neue Montreal Medium", sans-serif;
+      font-size: clamp(2.6rem, 7vw, 4.5rem);
+      font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: #f5f0e9;
+    }
+    #tvf-sub {
+      margin-top: 20px;
+      max-width: 400px;
+      font-size: 15px;
+      line-height: 1.65;
+      color: rgba(245,240,233,0.5);
+    }
+    /* pill form */
+    #tvf-form {
+      margin-top: 36px;
+      display: inline-flex;
+      align-items: center;
+      width: 420px;
+      max-width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(245,240,233,0.12);
+      background: rgba(30,14,5,0.7);
+      padding: 5px 5px 5px 18px;
+      box-shadow: 0 16px 50px rgba(8,3,0,0.55);
+      transition: border-color 0.2s;
+    }
+    #tvf-form.focus { border-color: rgba(255,100,30,0.35); }
+    #tvf-form.error { border-color: rgba(255,60,60,0.55); }
+    #tvf-input {
+      flex: 1;
+      min-width: 0;
+      height: 38px;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: "PP Neue Montreal Regular", sans-serif;
+      font-size: 14px;
+      letter-spacing: -0.01em;
+      color: #f5f0e9;
+      transition: opacity 0.12s;
+    }
+    #tvf-input::placeholder { color: rgba(245,240,233,0.35); }
+    #tvf-input:disabled { opacity: 0.4; cursor: default; }
+    /* fire submit button */
+    #tvf-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 38px;
+      padding: 0 18px;
+      border-radius: 6px;
+      border: none;
+      background: #2a2a2a;
+      font-family: "PP Supply Mono Regular", monospace;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #fff;
+      cursor: pointer;
+      overflow: hidden;
+      flex-shrink: 0;
+      white-space: nowrap;
+      transition: color 0.4s, width 0.38s cubic-bezier(0.65,0,0.2,1), padding 0.38s cubic-bezier(0.65,0,0.2,1);
+      outline-offset: 2px;
+    }
+    #tvf-btn:active { transform: scale(0.985); }
+    #tvf-btn canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      image-rendering: pixelated;
+      pointer-events: none;
+    }
+    #tvf-btn span { position: relative; }
+    /* success overlay */
+    #tvf-success {
+      pointer-events: none;
+      position: absolute;
+      inset-y: 0;
+      left: 18px;
+      right: 56px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      white-space: nowrap;
+      font-size: 14px;
+      color: rgba(255,140,60,0.9);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    #tvf-success.show { opacity: 1; }
+    /* spinner */
+    #tvf-spinner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    #tvf-spinner.show { opacity: 1; }
+    @keyframes tvf-spin { to { transform: rotate(360deg); } }
+    #tvf-spinner svg { animation: tvf-spin 0.9s steps(12) infinite; }
+    /* flame band canvas */
+    #tvf-flame {
+      position: absolute;
+      inset-x: 0;
+      bottom: 0;
+      width: 100%;
+      image-rendering: pixelated;
+      pointer-events: none;
+      mix-blend-mode: plus-lighter;
+    }
+    /* footer bottom bar */
+    #tvf-bar {
+      margin-top: 80px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(245,240,233,0.08);
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: rgba(245,240,233,0.4);
+    }
+    #tvf-brand { font-style: italic; }
+    #tvf-links { display: flex; gap: 20px; }
+    #tvf-links a { color: rgba(245,240,233,0.4); text-decoration: none; transition: color 0.2s; }
+    #tvf-links a:hover { color: #f5f0e9; }
+    #tvf-note { font-family: "PP Supply Mono Regular", monospace; font-size: 11px; letter-spacing: 0.08em; }
+    @media (min-width: 640px) {
+      #tvf-bar { flex-direction: row; justify-content: space-between; }
+    }
+    @media (max-width: 480px) {
+      #tvf-inner { padding-top: 64px; }
+    }
+  </style>
+
+  <div id="tvf-inner">
+    <p id="tvf-eyebrow">GET STARTED</p>
+    <h2 id="tvf-heading">Ready to grow?</h2>
+    <p id="tvf-sub">Leave your email and we'll reach out to discuss your brand's next chapter in Saudi Arabia.</p>
+
+    <form id="tvf-form" novalidate>
+      <input id="tvf-input" type="email" placeholder="you@company.com" autocomplete="email" aria-label="Email address">
+      <div id="tvf-success" aria-live="polite"></div>
+      <button id="tvf-btn" type="submit">
+        <canvas id="tvf-fire-canvas"></canvas>
+        <div id="tvf-spinner">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M12 19V22" opacity=".5" stroke="#fff" stroke-width="2" stroke-linecap="square"/>
+            <path d="M19.01 19L19 19" opacity=".63" stroke="#fff" stroke-width="2" stroke-linecap="square"/>
+            <path d="M5.01 19L5 19" opacity=".38" stroke="#fff" stroke-width="2" stroke-linecap="square"/>
+            <path d="M22 12H19" opacity=".75" stroke="#fff" stroke-width="2" stroke-linecap="square"/>
+            <path d="M5 12H2" opacity=".25" stroke="#fff" stroke-width="2" stroke-linecap="square"/>
+            <path d="M17.01 7L17 7" opacity=".88" stroke="#fff" stroke-width="2" stroke-linecap="square"/>
+            <path d="M7.01 7L7 7" opacity=".13" stroke="#fff" stroke-width="2" stroke-linecap="square"/>
+            <path d="M12 2V5" opacity="1" stroke="#fff" stroke-width="2" stroke-linecap="square"/>
+          </svg>
+        </div>
+        <span id="tvf-btn-label">Get in touch</span>
+      </button>
+    </form>
+
+    <div id="tvf-bar">
+      <span id="tvf-brand">Tech Venchure, est. 2015</span>
+      <nav id="tvf-links">
+        <a href="#">Services</a>
+        <a href="#">Work</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Instagram</a>
+      </nav>
+      <span id="tvf-note">No spam. Ever.</span>
+    </div>
+  </div>
+
+  <canvas id="tvf-flame" aria-hidden="true"></canvas>
+</footer>
+
+<script>
+(function(){
+  /* ---- shared doom-fire helpers ---- */
+  var STEPS = 38;
+  var CELL_BTN = 3;
+  var CELL_BAND = 10;
+
+  // Orange palette: dark ember → molten → bright
+  function buildPalette(steps, alpha) {
+    var p = new Uint8Array(steps * 4);
+    for (var s = 0; s < steps; s++) {
+      var t = s / (steps - 1);
+      var r, g, b;
+      if (t < 0.4) {
+        var e = t / 0.4;
+        r = 120 + (218 - 120) * e; g = 20 + (58 - 20) * e; b = 0;
+      } else if (t < 0.75) {
+        var e2 = (t - 0.4) / 0.35;
+        r = 218 + (255 - 218) * e2; g = 58 + (138 - 58) * e2; b = 0 + 42 * e2;
+      } else {
+        var e3 = (t - 0.75) / 0.25;
+        r = 255; g = 138 + (228 - 138) * e3; b = 42 + (157 - 42) * e3;
+      }
+      p[s * 4]     = r | 0;
+      p[s * 4 + 1] = g | 0;
+      p[s * 4 + 2] = b | 0;
+      p[s * 4 + 3] = Math.round(Math.pow(t, 1.2) * alpha);
+    }
+    return p;
+  }
+
+  /* ---- FIRE BUTTON canvas ---- */
+  var btnCanvas  = document.getElementById('tvf-fire-canvas');
+  var btnCtx     = btnCanvas && btnCanvas.getContext('2d');
+  var btnLit     = true;
+  var btnHover   = false;
+  var btnPressed = false;
+  var btnLevel   = 0;
+  var btnMaxHeat = 0;
+
+  if (btnCtx) {
+    var btn = document.getElementById('tvf-btn');
+    var COLS = 0, ROWS = 0, btnHeat, btnWater, btnImg, btnPalette;
+
+    function btnSize() {
+      COLS = Math.max(8, Math.ceil((btn.offsetWidth  || 120) / CELL_BTN));
+      ROWS = Math.max(8, Math.ceil((btn.offsetHeight || 38)  / CELL_BTN));
+      btnCanvas.width  = COLS;
+      btnCanvas.height = ROWS;
+      btnHeat  = new Uint8Array(COLS * ROWS);
+      btnWater = new Float32Array(COLS);
+      btnImg   = btnCtx.createImageData(COLS, ROWS);
+      btnPalette = buildPalette(STEPS, 180);
+    }
+    btnSize();
+    new ResizeObserver(btnSize).observe(btn);
+
+    var btnPointerX = COLS / 2;
+    btn.addEventListener('pointermove', function(e) {
+      var r = btnCanvas.getBoundingClientRect();
+      if (r.width > 0) btnPointerX = ((e.clientX - r.left) / r.width) * COLS;
+    });
+    btn.addEventListener('mouseenter', function() { btnHover = true; });
+    btn.addEventListener('mouseleave', function() { btnHover = false; btnPressed = false; });
+    btn.addEventListener('pointerdown', function() { btnPressed = true; });
+    btn.addEventListener('pointerup',   function() { btnPressed = false; });
+
+    var btnRaf = 0, btnLast = 0, btnAcc = 0, btnBurst = 0, btnWasPressed = false;
+    var BTN_TICK = 1000 / 30;
+
+    function btnFrame(t) {
+      btnRaf = requestAnimationFrame(btnFrame);
+      btnLast = btnLast || t;
+      var dt = Math.min(64, t - btnLast);
+      btnLast = t;
+
+      if (btnLit) btnLevel += (1 - btnLevel) * (1 - Math.exp(-dt / 240));
+      else if (btnLevel > 0) { btnLevel += (0 - btnLevel) * (1 - Math.exp(-dt / 320)); if (btnLevel < 0.02) btnLevel = 0; }
+
+      btnAcc += dt;
+      if (btnAcc >= BTN_TICK) {
+        btnAcc %= BTN_TICK;
+        for (var x = 0; x < COLS; x++) btnWater[x] = Math.max(-4, Math.min(4, (btnWater[x] || 0) + (Math.random() - 0.5) * 1.6));
+        for (var x2 = 1; x2 < COLS - 1; x2++) btnWater[x2] = ((btnWater[x2-1]||0) + (btnWater[x2]||0)*2 + (btnWater[x2+1]||0)) / 4;
+
+        var cool = btnLit ? 0 : 1;
+        for (var y = 0; y < ROWS - 1; y++) {
+          for (var x3 = 0; x3 < COLS; x3++) {
+            var src = (y + 1) * COLS + x3;
+            var dx2 = ((Math.random() * 3) | 0) - 1;
+            var dst = y * COLS + Math.min(COLS-1, Math.max(0, x3 + dx2));
+            var v = (btnHeat[src] || 0) - (1 + cool + ((Math.random() * 2.4) | 0));
+            btnHeat[dst] = v > 0 ? v : 0;
+          }
+        }
+
+        var churn = btnLevel * (1 - btnLevel) * 4;
+        var fill  = btnLevel * (ROWS + 6);
+
+        if (btnPressed && !btnWasPressed) btnBurst = 1;
+        btnWasPressed = btnPressed;
+        btnBurst = btnPressed ? Math.max(btnBurst * 0.86, 0.45) : btnBurst * 0.8;
+
+        if (btnLit) {
+          for (var x4 = 0; x4 < COLS; x4++) {
+            var h = fill + (btnWater[x4]||0) * (0.4 + churn);
+            var surface = ROWS - 1 - Math.floor(h);
+            if (btnLevel > 0.02 && surface >= 0 && surface < ROWS) {
+              btnHeat[surface * COLS + x4] = STEPS - 1;
+              if (surface + 1 < ROWS) btnHeat[(surface+1)*COLS+x4] = STEPS - 1;
+            }
+            if (btnLevel > 0.97) {
+              if (btnBurst > 0.05) {
+                btnHeat[(ROWS-1)*COLS+x4] = STEPS-1;
+                btnHeat[(ROWS-2)*COLS+x4] = STEPS-1;
+                if (ROWS > 2 && Math.random() < btnBurst) btnHeat[(ROWS-3)*COLS+x4] = STEPS-1;
+                if (Math.random() < btnBurst*0.3) btnHeat[((Math.random()*ROWS)|0)*COLS+x4] = STEPS-1;
+              } else if (btnHover) {
+                btnHeat[(ROWS-1)*COLS+x4] = STEPS-1;
+                if (Math.random() < 0.7) btnHeat[(ROWS-2)*COLS+x4] = STEPS-2;
+                var dxx = x4 - btnPointerX;
+                var near = Math.exp(-(dxx*dxx)/18);
+                if (near > 0.35 && ROWS > 2) btnHeat[(ROWS-3)*COLS+x4] = STEPS-1;
+                if (near > 0.7  && ROWS > 3) btnHeat[(ROWS-4)*COLS+x4] = STEPS-3;
+              } else if (Math.random() < 0.55) {
+                btnHeat[(ROWS-1)*COLS+x4] = Math.random() < 0.5 ? STEPS-11 : STEPS-17;
+              }
+            }
+          }
+        }
+      }
+
+      if (btnLevel === 0 && btnMaxHeat === 0) { btnCtx.clearRect(0,0,COLS,ROWS); return; }
+      btnMaxHeat = 0;
+      var churn2 = btnLevel * (1 - btnLevel) * 4;
+      var fill2  = btnLevel * (ROWS + 6);
+      var d = btnImg.data;
+      for (var bx = 0; bx < COLS; bx++) {
+        var h2 = fill2 + (btnWater[bx]||0) * (0.4 + churn2);
+        for (var by = 0; by < ROWS; by++) {
+          var bi = by * COLS + bx, bo = bi * 4;
+          var bv = btnHeat[bi] || 0;
+          if (bv > btnMaxHeat) btnMaxHeat = bv;
+          var pi = bv * 4;
+          var aa = btnPalette[pi+3];
+          if (ROWS - by <= h2) {
+            d[bo]   = 218 + (((btnPalette[pi]   - 218) * aa) >> 8);
+            d[bo+1] = 58  + (((btnPalette[pi+1] - 58)  * aa) >> 8);
+            d[bo+2] = 0   + (((btnPalette[pi+2])        * aa) >> 8);
+            d[bo+3] = 255;
+          } else {
+            d[bo]=btnPalette[pi]; d[bo+1]=btnPalette[pi+1]; d[bo+2]=btnPalette[pi+2]; d[bo+3]=aa;
+          }
+        }
+      }
+      btnCtx.putImageData(btnImg, 0, 0);
+    }
+    btnRaf = requestAnimationFrame(btnFrame);
+  }
+
+  /* ---- FLAME BAND canvas ---- */
+  var bandCanvas = document.getElementById('tvf-flame');
+  var bandCtx    = bandCanvas && bandCanvas.getContext('2d');
+  var BAND_H     = 260;
+
+  if (bandCtx) {
+    bandCanvas.style.height = BAND_H + 'px';
+    var bandPalette = buildPalette(STEPS, 85);
+    var bCols = 8, bRows = 8, bM, bImg, bWind;
+    var bPointer = {x:0, y:0, lastX:0, vel:0, active:false};
+
+    function bandSize() {
+      bCols = Math.max(8, Math.ceil((bandCanvas.parentElement.clientWidth || window.innerWidth) / CELL_BAND));
+      bRows = Math.max(8, Math.ceil(BAND_H / CELL_BAND));
+      bandCanvas.width  = bCols;
+      bandCanvas.height = bRows;
+      bM    = new Uint8Array(bCols * bRows);
+      bImg  = bandCtx.createImageData(bCols, bRows);
+      bWind = new Float32Array(bCols);
+    }
+    bandSize();
+    new ResizeObserver(bandSize).observe(bandCanvas.parentElement);
+
+    window.addEventListener('pointermove', function(e) {
+      bPointer.x = e.clientX; bPointer.y = e.clientY;
+      bPointer.active = e.pointerType !== 'touch';
+    }, {passive:true});
+
+    var bRaf = 0, bLast = 0, bRunning = true, bVisible = true;
+    var B_SPEED = 30;
+    var WAVE = 1;
+
+    function bandFrame(tms) {
+      if (!bRunning || !bVisible) return;
+      bRaf = requestAnimationFrame(bandFrame);
+      if (tms - bLast < 1000 / B_SPEED) return;
+      bLast = tms;
+      var t = tms / 1000;
+      var crest = WAVE * (STEPS * 0.55);
+
+      for (var x = 0; x < bCols; x++) {
+        var n = 0.5 + 0.5*(Math.sin(x*0.035+t*0.45)*0.6 + Math.sin(x*0.011-t*0.2)*0.4);
+        var ripple = Math.sin(x*0.21+t*1.7) + Math.sin(x*0.047-t*0.9);
+        var jitter = (Math.random()*6)|0;
+        bM[(bRows-1)*bCols+x] = Math.max(0, Math.round(STEPS-3-crest*(1-n)+ripple*1.5-jitter));
+      }
+
+      bPointer.vel = bPointer.vel*0.8 + (bPointer.x - bPointer.lastX)*0.2;
+      bPointer.lastX = bPointer.x;
+      bWind.fill(0);
+      if (Math.abs(bPointer.vel) > 0.5 && bPointer.active) {
+        var rect = bandCanvas.getBoundingClientRect();
+        if (rect.width>0 && bPointer.y>=rect.top-120 && bPointer.y<=rect.bottom+40 &&
+            bPointer.x>=rect.left-100 && bPointer.x<=rect.right+100) {
+          var px = ((bPointer.x - rect.left)/rect.width)*bCols;
+          var amp = Math.max(-1,Math.min(1, bPointer.vel/28));
+          for (var x2=0; x2<bCols; x2++) { var dd=(x2-px)/20; bWind[x2]=amp*Math.exp(-dd*dd); }
+        }
+      }
+
+      for (var y=1; y<bRows; y++) {
+        for (var x3=0; x3<bCols; x3++) {
+          var idx=y*bCols+x3, v=bM[idx]||0;
+          var r4=(Math.random()*3.99)|0, drift=r4>1?r4-2:0;
+          var w=bWind[x3]||0;
+          if (w!==0 && Math.random()<Math.abs(w)) drift+=w>0?1:-1;
+          var decay=r4&1?2:1;
+          var target=idx-bCols+drift;
+          bM[Math.max(0,Math.min(bCols*bRows-1,target))] = v>decay?v-decay:0;
+        }
+      }
+
+      var bd=bImg.data;
+      for (var i=0,o=0; i<bCols*bRows; i++,o+=4) {
+        var pi=(bM[i]||0)*4;
+        bd[o]=bandPalette[pi]; bd[o+1]=bandPalette[pi+1]; bd[o+2]=bandPalette[pi+2]; bd[o+3]=bandPalette[pi+3];
+      }
+      bandCtx.putImageData(bImg,0,0);
+    }
+
+    var io = new IntersectionObserver(function(entries) {
+      bVisible = entries[0] && entries[0].isIntersecting;
+      if (bVisible && bRunning) { bLast=0; bRaf=requestAnimationFrame(bandFrame); }
+    });
+    io.observe(bandCanvas);
+    bRaf = requestAnimationFrame(bandFrame);
+  }
+
+  /* ---- FORM logic ---- */
+  var form    = document.getElementById('tvf-form');
+  var input   = document.getElementById('tvf-input');
+  var success = document.getElementById('tvf-success');
+  var spinner = document.getElementById('tvf-spinner');
+  var btnLabel= document.getElementById('tvf-btn-label');
+  var tvfBtn  = document.getElementById('tvf-btn');
+  var status  = 'idle'; // idle | processing | success
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function setStatus(s) {
+    status = s;
+    if (s === 'processing') {
+      input.disabled = true;
+      btnLit = true;
+      tvfBtn.style.width = '38px';
+      tvfBtn.style.paddingLeft = '0';
+      tvfBtn.style.paddingRight = '0';
+      btnLabel.style.opacity = '0';
+      spinner.classList.add('show');
+    } else if (s === 'success') {
+      spinner.classList.remove('show');
+      success.textContent = 'On it! We will be in touch soon.';
+      success.classList.add('show');
+      input.style.opacity = '0';
+    }
+  }
+
+  if (form) {
+    input.addEventListener('focus', function() { form.classList.add('focus'); });
+    input.addEventListener('blur',  function() { form.classList.remove('focus'); });
+    input.addEventListener('input', function() { form.classList.remove('error'); });
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (status !== 'idle') return;
+      var email = (input.value || '').trim();
+      if (!EMAIL_RE.test(email)) {
+        form.classList.add('error');
+        form.animate([
+          {transform:'translateX(0)'},{transform:'translateX(-9px)'},
+          {transform:'translateX(8px)'},{transform:'translateX(-6px)'},
+          {transform:'translateX(4px)'},{transform:'translateX(-2px)'},
+          {transform:'translateX(0)'}
+        ], {duration:440, easing:'cubic-bezier(0.36,0.07,0.19,0.97)'});
+        input.focus();
+        return;
+      }
+      setStatus('processing');
+      setTimeout(function() { setStatus('success'); }, 900);
+    });
+  }
+}());
+</script>
+
 <script>
   var hb = document.getElementById('hamburger');
   var mm = document.getElementById('mobileMenu');
