@@ -244,11 +244,7 @@
     .tvt-column.lg-hide { display: none; }
     @media (min-width: 768px) { .tvt-column.md-hide { display: block; } }
     @media (min-width: 1024px) { .tvt-column.lg-hide { display: block; } }
-    @keyframes tvt-scroll { from { transform: translateY(0); } to { transform: translateY(-50%); } }
-    .tvt-track { display: flex; flex-direction: column; gap: 24px; padding-bottom: 24px; animation: tvt-scroll linear infinite; }
-    .tvt-track.speed-15 { animation-duration: 15s; }
-    .tvt-track.speed-19 { animation-duration: 19s; }
-    .tvt-track.speed-17 { animation-duration: 17s; }
+    .tvt-track { display: flex; flex-direction: column; gap: 24px; will-change: transform; }
     .tvt-card { background: linear-gradient(#1c1c1e,#1c1c1e) padding-box, linear-gradient(135deg,#FF9900,#FF0000) border-box; border: 2px solid transparent; border-radius: 18px; padding: 28px; width: 100%; box-sizing: border-box; box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
     .tvt-text { font-family: 'PP Neue Montreal Regular', sans-serif; font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.82); margin: 0 0 20px; }
     .tvt-author { display: flex; align-items: center; gap: 10px; }
@@ -807,6 +803,23 @@ var circle = document.getElementById('circleHero');
     var io = new IntersectionObserver(function(entries) { if (entries[0].isIntersecting) run(); }, { threshold: 0.5 });
     var stats = document.getElementById('tvhStats');
     if (stats) io.observe(stats);
+  }());
+
+  // ── Testimonial columns — RAF infinite scroll (no CSS animation jump) ──
+  (function() {
+    var speeds = [0.55, 0.38, 0.46]; // px/frame per column, matching original pacing
+    document.querySelectorAll('.tvt-track').forEach(function(track, i) {
+      var pos = 0, half = 0;
+      function measure() { half = track.scrollHeight / 2; }
+      measure();
+      new ResizeObserver(measure).observe(track);
+      (function tick() {
+        requestAnimationFrame(tick);
+        pos += speeds[i] || 0.5;
+        if (pos >= half) pos -= half;
+        track.style.transform = 'translateY(-' + pos.toFixed(2) + 'px)';
+      }());
+    });
   }());
 
   // ── Works Wheel (scroll-driven) ──
