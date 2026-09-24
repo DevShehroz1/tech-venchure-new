@@ -666,6 +666,239 @@
   </div>
 </section>
 
+<!-- FAQ Section -->
+<section id="tv-faq">
+  <style>
+    #tv-faq {
+      position: relative;
+      background: #080808;
+      padding: 100px 24px 120px;
+      overflow: hidden;
+    }
+    /* corner glows */
+    #tv-faq::before,
+    #tv-faq::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    #tv-faq::before {
+      width: 600px; height: 400px;
+      top: -120px; left: -160px;
+      background: radial-gradient(ellipse, rgba(180,20,10,0.28) 0%, transparent 70%);
+    }
+    #tv-faq::after {
+      width: 500px; height: 350px;
+      bottom: -80px; right: -120px;
+      background: radial-gradient(ellipse, rgba(160,15,8,0.22) 0%, transparent 70%);
+    }
+    #tvfaq-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    #tvfaq-badge {
+      display: inline-block;
+      background: #14111f;
+      border: 1px solid rgba(255,80,30,0.25);
+      border-radius: 999px;
+      padding: 5px 18px;
+      font-family: "PP Supply Mono Regular", monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,100,40,0.9);
+      margin-bottom: 32px;
+    }
+    #tvfaq-heading {
+      font-family: "PP Neue Montreal Medium", sans-serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: #f5f0e9;
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    /* accordion */
+    .tvfaq-item {
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 16px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.02);
+      transition: border-color 0.25s;
+    }
+    .tvfaq-item.open {
+      border-color: rgba(255,60,20,0.35);
+    }
+    .tvfaq-q {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 22px 28px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font-family: "PP Neue Montreal Regular", sans-serif;
+      font-size: 16px;
+      color: #f5f0e9;
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+    }
+    .tvfaq-q:hover { color: #fff; }
+    .tvfaq-icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      position: relative;
+      color: rgba(245,240,233,0.45);
+      transition: transform 0.3s, color 0.25s;
+    }
+    .tvfaq-icon::before,
+    .tvfaq-icon::after {
+      content: '';
+      position: absolute;
+      background: currentColor;
+      border-radius: 1px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .tvfaq-icon::before { width: 14px; height: 1.5px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+    .tvfaq-icon::after  { width: 1.5px; height: 14px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+    .tvfaq-item.open .tvfaq-icon { color: rgba(255,100,40,0.8); transform: rotate(45deg); }
+    .tvfaq-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    .tvfaq-item.open .tvfaq-body { grid-template-rows: 1fr; }
+    .tvfaq-body-inner {
+      overflow: hidden;
+    }
+    .tvfaq-a {
+      padding: 0 28px 22px;
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: rgba(245,240,233,0.5);
+      font-family: "PP Neue Montreal Regular", sans-serif;
+    }
+    @media (max-width: 600px) {
+      #tvfaq-heading { font-size: 2rem; margin-bottom: 36px; }
+      .tvfaq-q { padding: 18px 20px; font-size: 15px; }
+      .tvfaq-a { padding: 0 20px 18px; }
+    }
+  </style>
+
+  <div id="tvfaq-inner">
+    <div style="text-align:center">
+      <span id="tvfaq-badge">FAQ</span>
+    </div>
+    <h2 id="tvfaq-heading">Get answers to common<br>questions</h2>
+
+    <div id="tvfaq-list">
+
+      <div class="tvfaq-item">
+        <button class="tvfaq-q" aria-expanded="false">
+          <span>What services does Techvenchure offer?</span>
+          <span class="tvfaq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="tvfaq-body" role="region">
+          <div class="tvfaq-body-inner">
+            <p class="tvfaq-a">We offer a wide range of services including UI/UX design, app development, custom software solutions, cloud migration and server services, SaaS development services, and technology management &amp; advisory services.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tvfaq-item">
+        <button class="tvfaq-q" aria-expanded="false">
+          <span>How do we approach UI/UX design?</span>
+          <span class="tvfaq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="tvfaq-body" role="region">
+          <div class="tvfaq-body-inner">
+            <p class="tvfaq-a">We follow a user-centered design approach, focusing on understanding the needs and behaviors of users to create intuitive and engaging interfaces.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tvfaq-item">
+        <button class="tvfaq-q" aria-expanded="false">
+          <span>Can we develop apps for both iOS and Android platforms?</span>
+          <span class="tvfaq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="tvfaq-body" role="region">
+          <div class="tvfaq-body-inner">
+            <p class="tvfaq-a">Yes, our team is experienced in developing apps for both iOS and Android platforms, ensuring a seamless user experience across devices.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tvfaq-item">
+        <button class="tvfaq-q" aria-expanded="false">
+          <span>What is the process for custom software development at our company?</span>
+          <span class="tvfaq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="tvfaq-body" role="region">
+          <div class="tvfaq-body-inner">
+            <p class="tvfaq-a">Our custom software development process includes requirements gathering, design, development, testing, and deployment, with regular communication and feedback loops to ensure client satisfaction.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tvfaq-item">
+        <button class="tvfaq-q" aria-expanded="false">
+          <span>How do we assist with cloud migration and server services?</span>
+          <span class="tvfaq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="tvfaq-body" role="region">
+          <div class="tvfaq-body-inner">
+            <p class="tvfaq-a">We help businesses migrate their data and applications to the cloud, as well as provide server setup, maintenance, and optimization services to ensure optimal performance.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tvfaq-item">
+        <button class="tvfaq-q" aria-expanded="false">
+          <span>What technology management and advisory services do we offer?</span>
+          <span class="tvfaq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="tvfaq-body" role="region">
+          <div class="tvfaq-body-inner">
+            <p class="tvfaq-a">We provide technology consulting, strategy development, and implementation services to help businesses leverage technology for growth and efficiency.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    document.querySelectorAll('.tvfaq-q').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var item = btn.closest('.tvfaq-item');
+        var isOpen = item.classList.contains('open');
+        // close all
+        document.querySelectorAll('.tvfaq-item.open').forEach(function(el){
+          el.classList.remove('open');
+          el.querySelector('.tvfaq-q').setAttribute('aria-expanded','false');
+        });
+        // open clicked if it was closed
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded','true');
+        }
+      });
+    });
+  }());
+  </script>
+</section>
+
 <!-- ======================================================
      FOOTER CTA — doom-fire canvas effect (pure JS/canvas)
      Brand palette: dark #0d0d0d, orange #ff4400→#ff8800
