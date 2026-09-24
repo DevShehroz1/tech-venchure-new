@@ -912,12 +912,15 @@ var circle = document.getElementById('circleHero');
       schedule();
     }
 
-    stage.addEventListener('wheel',function(e){
+    // Global wheel: intercept whenever the section fills the viewport,
+    // regardless of which element the cursor is over.
+    window.addEventListener('wheel',function(e){
+      var r=section.getBoundingClientRect();
+      var inView=r.top<=1&&r.bottom>=window.innerHeight-1;
+      if(!inView)return;
       var n=target+e.deltaY/WHEEL_UNITS;
-      if(n>0&&n<last+1)e.preventDefault();
-      goTo(n);
-      clearTimeout(settling);
-      settling=setTimeout(function(){goTo(Math.round(target));},SETTLE);
+      // At the boundaries let the page scroll naturally so the user can leave.
+      if(n>0&&n<last+1){e.preventDefault();goTo(n);clearTimeout(settling);settling=setTimeout(function(){goTo(Math.round(target));},SETTLE);}
     },{passive:false});
     stage.addEventListener('pointerdown',function(e){dragY=e.clientY;stage.setPointerCapture(e.pointerId);});
     stage.addEventListener('pointermove',function(e){if(dragY===null)return;goTo(target+(dragY-e.clientY)/DRAG_UNITS);dragY=e.clientY;});
