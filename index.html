@@ -295,7 +295,7 @@
       .tvsm-card {
         position: absolute;
         left: 16px; right: 16px;
-        top: 72px; bottom: 16px;
+        top: 80px; height: 68vh;
         border-radius: 20px;
         background: linear-gradient(180deg,#FF9900,#FF0000);
         display: flex; flex-direction: column;
@@ -1840,7 +1840,7 @@ document.addEventListener('DOMContentLoaded', function(){
         var jLocal = scrolled - jStart;
         var jSlide = clamp(jLocal / (vh * 0.55), 0, 1);
         if (jSlide > 0) {
-          peekOffset -= jSlide * 16; // compress 16px per incoming card
+          peekOffset -= jSlide * 44; // compress 44px per incoming card so numbers peek clearly
         }
       }
 
