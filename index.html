@@ -145,7 +145,7 @@
     .tvh-grid{display:grid;grid-template-columns:1fr;gap:0;padding:0 0.5em}
     .tvh-block{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:2em;position:relative;z-index:50}
     .tvh-eyebrow{font-family:"PP Neue Montreal Regular","PP Neue Montreal Regular Placeholder",sans-serif;font-size:.85em;color:rgb(153,153,153);letter-spacing:.06em;display:flex;align-items:center;gap:.5em;margin:0}
-    .tvh-heading{font-family:"PP Neue Montreal Regular","PP Neue Montreal Regular Placeholder",sans-serif;font-size:5em;font-weight:500;line-height:1em;margin:0;color:#fafafa}
+    .tvh-heading{font-family:"PP Neue Montreal Regular","PP Neue Montreal Regular Placeholder",sans-serif;font-size:5em;font-weight:500;line-height:1em;margin:0;color:#fafafa;overflow:visible}
     .tvh-para{font-family:"PP Neue Montreal Regular","PP Neue Montreal Regular Placeholder",sans-serif;font-size:1.05em;line-height:1.65em;letter-spacing:.02em;color:#d0d0d0;max-width:26em;margin:0}
     .tvh-ctas{display:flex;gap:12px;flex-wrap:wrap}
     .tvh-btn{display:inline-flex;align-items:center;gap:.45em;font-family:"PP Neue Montreal Regular","PP Neue Montreal Regular Placeholder",sans-serif;font-size:.88em;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:.85em 1.5em;border-radius:10px;text-decoration:none;line-height:1.2em;cursor:pointer;background:rgba(8,8,8,.55);color:#fff;border:1px solid rgba(255,255,255,.32);transition:background .2s,border-color .2s}
@@ -212,7 +212,7 @@
     .tvh-stat-divider{width:1px;height:36px;background:rgba(255,255,255,0.15);flex-shrink:0}
     @media(max-width:991px){.tvh-heading{font-size:3.8em}.circle-hero{font-size:1em}}
     @media(max-width:767px){.tvh-grid{grid-template-columns:1fr}.tvh-block{align-items:flex-start}.tvh-heading{font-size:3em}.tvh-blur-top{left:10%;width:80%;top:-5em}.tvh-blur-sphere{width:38em;height:18em}#tv-hero-wrap{padding:0}}
-    @media(max-width:479px){.tvh-section{padding-top:7em;padding-bottom:5em}.tvh-heading{font-size:2.4em}.tvh-sphere-wrap{min-height:22em}.circle-hero{font-size:.7em}}
+    @media(max-width:479px){.tvh-section{padding-top:7em;padding-bottom:5em}.tvh-heading{font-size:2.4em}.tvh-sphere-wrap{min-height:22em}.circle-hero{font-size:.7em}.tvh-stats{gap:16px}.tvh-stat-num{font-size:1.5em}.tvh-stat-label{font-size:0.68em}.tvh-stat-divider{height:28px}}
 
     /* ── Services Section ── */
     #tv-services { position: relative; height: 400vh; }
@@ -1747,7 +1747,7 @@ document.addEventListener('DOMContentLoaded', function(){
           wrap.style.cssText = 'display:inline-block;overflow:hidden;vertical-align:bottom';
           var inner = document.createElement('span');
           inner.className = 'tv-ch';
-          inner.style.cssText = 'display:block;transform:translateY(110%);transition:transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+          inner.style.cssText = 'display:block;white-space:pre;transform:translateY(110%);transition:transform 0.6s cubic-bezier(0.16,1,0.3,1)';
           inner.textContent = ch;
           wrap.appendChild(inner);
           el.appendChild(wrap);
