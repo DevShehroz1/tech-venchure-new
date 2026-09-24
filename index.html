@@ -285,17 +285,17 @@
       #tvs-mob { display: block; background: #000; }
       #tvsm-pin { position: sticky; top: 0; height: 100vh; overflow: hidden; }
       .tvsm-head {
-        position: absolute; bottom: 60px; left: 0; right: 0;
+        position: absolute; top: 72px; left: 0; right: 0;
         text-align: center;
         font-family: 'PP Neue Montreal Medium', sans-serif;
-        font-size: clamp(48px,14vw,72px); font-weight:500;
-        color:#fff; line-height:1; letter-spacing:-.03em;
-        pointer-events:none;
+        font-size: clamp(28px,9vw,40px); font-weight:500;
+        color:#fff; line-height:1.1; letter-spacing:-.03em;
+        pointer-events:none; z-index:10;
       }
       .tvsm-card {
         position: absolute;
         left: 16px; right: 16px;
-        top: 80px; height: 68vh;
+        top: 240px; height: 52vh;
         border-radius: 20px;
         background: linear-gradient(180deg,#FF9900,#FF0000);
         display: flex; flex-direction: column;
@@ -1814,13 +1814,6 @@ document.addEventListener('DOMContentLoaded', function(){
     var vh = window.innerHeight;
     var rect = mob.getBoundingClientRect();
     var scrolled = -rect.top; // px scrolled into section
-
-    // Heading fades out as first card arrives
-    var headOut = clamp(scrolled / vh, 0, 1);
-    if (head) {
-      head.style.opacity = 1 - headOut;
-      head.style.transform = 'translateY(' + (-headOut * 30) + 'px)';
-    }
 
     cards.forEach(function(card, i) {
       // Each card has a 1vh scroll window starting at (i+1)*vh
