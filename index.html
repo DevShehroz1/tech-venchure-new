@@ -913,167 +913,218 @@
       background: radial-gradient(90% 70% at 50% 100%, #1a0a00 0%, #110500 45%, #0d0d0d 100%);
       color: #f5f0e9;
       font-family: "PP Neue Montreal Regular", sans-serif;
+      border-top: 1px solid rgba(245,240,233,0.06);
     }
+    /* flame band canvas */
+    #tvf-flame {
+      position: absolute;
+      inset-x: 0; bottom: 0;
+      width: 100%; image-rendering: pixelated;
+      pointer-events: none; mix-blend-mode: plus-lighter;
+    }
+    /* hidden stubs for JS */
+    #tvf-btn, #tvf-success, #tvf-spinner, #tvf-form { display: none; }
+
+    /* ---- layout ---- */
     #tvf-inner {
-      position: relative;
-      z-index: 10;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 72px 48px 200px;
+      position: relative; z-index: 10;
+      max-width: 1152px; margin: 0 auto;
+      padding: 64px 32px 200px;
       display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 64px;
+      grid-template-columns: 1fr 2fr;
+      gap: 48px;
       align-items: start;
     }
-    /* LEFT: logo + tagline + socials */
-    #tvf-left { display: flex; flex-direction: column; gap: 20px; }
-    #tvf-logo img { height: 38px; width: auto; }
-    #tvf-tagline {
-      font-size: 14px;
-      line-height: 1.65;
-      color: rgba(245,240,233,0.45);
-      max-width: 240px;
+
+    /* ---- fade-in-up animation ---- */
+    @keyframes tvf-fadein { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .tvf-anim {
+      opacity: 0;
+      animation: tvf-fadein 0.45s cubic-bezier(0.22,1,0.36,1) forwards;
+      animation-play-state: paused;
     }
-    #tvf-socials { display: flex; gap: 16px; margin-top: 4px; }
+    .tvf-anim.tvf-in { animation-play-state: running; }
+
+    /* ---- LEFT ---- */
+    #tvf-left { display: flex; flex-direction: column; gap: 16px; max-width: 220px; }
+    #tvf-logo img { height: 36px; width: auto; }
+    #tvf-tagline {
+      font-size: 13.5px; line-height: 1.65;
+      color: rgba(245,240,233,0.42);
+    }
+    #tvf-socials { display: flex; gap: 12px; margin-top: 8px; }
     #tvf-socials a {
       display: flex; align-items: center; justify-content: center;
-      width: 36px; height: 36px; border-radius: 8px;
-      border: 1px solid rgba(245,240,233,0.12);
-      color: rgba(245,240,233,0.5);
+      width: 34px; height: 34px; border-radius: 8px;
+      border: 1px solid rgba(245,240,233,0.11);
+      color: rgba(245,240,233,0.45);
       text-decoration: none;
       transition: border-color 0.2s, color 0.2s;
     }
-    #tvf-socials a:hover { border-color: rgba(245,240,233,0.35); color: #f5f0e9; }
-    #tvf-socials svg { width: 16px; height: 16px; }
-    /* RIGHT: 3-column link grid */
-    #tvf-cols {
+    #tvf-socials a:hover { border-color: rgba(245,240,233,0.32); color: #f5f0e9; }
+    #tvf-socials svg { width: 15px; height: 15px; }
+
+    /* ---- RIGHT: 2×2 column grid ---- */
+    #tvf-right {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 48px;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px 32px;
+    }
+    .tvf-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
     }
     .tvf-col-title {
-      font-family: "PP Neue Montreal Medium", sans-serif;
-      font-size: 14px;
-      font-weight: 500;
+      font-family: "PP Neue Montreal Regular", sans-serif;
+      font-size: 14px; font-weight: 400;
       color: #f5f0e9;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       letter-spacing: -0.01em;
     }
     .tvf-col-links { display: flex; flex-direction: column; gap: 14px; }
-    .tvf-col-links a, .tvf-col-links span {
-      font-size: 14px;
-      color: rgba(245,240,233,0.45);
+    .tvf-col-links a {
+      font-size: 13.5px;
+      color: rgba(245,240,233,0.42);
       text-decoration: none;
       line-height: 1.55;
-      transition: color 0.25s;
-    }
-    .tvf-col-links a {
       display: inline-block;
       overflow: hidden;
       height: 1.55em;
+      transition: color 0.25s;
     }
     .tvf-col-links a span { display: block; transition: transform 0.42s cubic-bezier(0.76,0,0.24,1); }
     .tvf-col-links a:hover { color: #f5f0e9; }
     .tvf-col-links a:hover span { transform: translateY(-100%); }
-    /* flame band canvas */
-    #tvf-flame {
-      position: absolute;
-      inset-x: 0;
-      bottom: 0;
-      width: 100%;
-      image-rendering: pixelated;
-      pointer-events: none;
-      mix-blend-mode: plus-lighter;
+    .tvf-col-links .tvf-plain {
+      font-size: 13.5px;
+      color: rgba(245,240,233,0.42);
+      line-height: 1.65;
     }
-    /* fire submit button (kept for JS, hidden in this layout) */
-    #tvf-btn {
-      position: relative;
-      display: inline-flex; align-items: center; justify-content: center;
-      height: 38px; padding: 0 18px; border-radius: 6px; border: none;
-      background: #2a2a2a; font-family: "PP Supply Mono Regular", monospace;
-      font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase;
-      color: #fff; cursor: pointer; overflow: hidden; flex-shrink: 0;
-      white-space: nowrap; display: none;
+
+    /* ---- bottom bar ---- */
+    #tvf-bottom {
+      position: relative; z-index: 10;
+      max-width: 1152px; margin: 0 auto;
+      padding: 0 32px 40px;
+      border-top: 1px solid rgba(245,240,233,0.07);
     }
-    #tvf-btn canvas { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; pointer-events: none; }
-    #tvf-btn span { position: relative; }
-    #tvf-success, #tvf-spinner, #tvf-form { display: none; }
-    /* responsive */
+    #tvf-copy {
+      padding-top: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: rgba(245,240,233,0.35);
+    }
+
+    /* ---- responsive ---- */
     @media (max-width: 900px) {
-      #tvf-inner { grid-template-columns: 1fr; gap: 48px; padding: 56px 32px 200px; }
-      #tvf-tagline { max-width: 100%; }
+      #tvf-inner { grid-template-columns: 1fr; padding: 56px 24px 200px; }
+      #tvf-left { max-width: 100%; }
+      #tvf-right { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 560px) {
-      #tvf-cols { grid-template-columns: 1fr 1fr; gap: 36px; }
-      #tvf-inner { padding: 48px 24px 180px; }
-    }
-    @media (max-width: 380px) {
-      #tvf-cols { grid-template-columns: 1fr; }
+      .tvf-pair { grid-template-columns: 1fr; gap: 32px; }
+      #tvf-right { grid-template-columns: 1fr; }
     }
   </style>
 
   <div id="tvf-inner">
-    <!-- LEFT column -->
-    <div id="tvf-left">
+    <!-- LEFT: logo + description + socials -->
+    <div id="tvf-left" class="tvf-anim" style="animation-delay:0ms">
       <a id="tvf-logo" href="/">
         <img src="/assets/techvenchure-logo.png" alt="Tech Venchure">
       </a>
-      <p id="tvf-tagline">AI-powered marketing and brand growth for businesses scaling across Saudi Arabia and MENA.</p>
+      <p id="tvf-tagline">Build better brands faster with Tech Venchure — AI-powered marketing for modern businesses.</p>
       <div id="tvf-socials">
-        <!-- X / Twitter -->
         <a href="#" aria-label="X">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.258 5.626 5.906-5.626Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         </a>
-        <!-- LinkedIn -->
         <a href="#" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         </a>
-        <!-- Instagram -->
         <a href="#" aria-label="Instagram">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         </a>
-        <!-- TikTok -->
         <a href="#" aria-label="TikTok">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.2 8.2 0 0 0 4.79 1.53V6.75a4.85 4.85 0 0 1-1.02-.06z"/></svg>
         </a>
       </div>
     </div>
 
-    <!-- RIGHT: 3-column links -->
-    <div id="tvf-cols">
-      <!-- Sitemap -->
-      <div class="tvf-col">
-        <p class="tvf-col-title">Sitemap</p>
-        <div class="tvf-col-links">
-          <a href="#tv-services"><span>Services</span><span>Services</span></a>
-          <a href="#tv-ww"><span>Our Work</span><span>Our Work</span></a>
-          <a href="#tv-gp"><span>About Us</span><span>About Us</span></a>
-          <a href="#tv-faq"><span>Contact</span><span>Contact</span></a>
-          <a href="#"><span>Careers</span><span>Careers</span></a>
+    <!-- RIGHT: 2×2 column pairs -->
+    <div id="tvf-right">
+      <!-- pair 1 -->
+      <div class="tvf-pair">
+        <div class="tvf-col tvf-anim" style="animation-delay:100ms">
+          <p class="tvf-col-title">Tech Venchure</p>
+          <div class="tvf-col-links">
+            <a href="#tv-services"><span>Services</span><span>Services</span></a>
+            <a href="#tv-ww"><span>Our Work</span><span>Our Work</span></a>
+            <a href="#tv-gp"><span>About Us</span><span>About Us</span></a>
+            <a href="#"><span>Careers</span><span>Careers</span></a>
+          </div>
+        </div>
+        <div class="tvf-col tvf-anim" style="animation-delay:200ms">
+          <p class="tvf-col-title">Solutions</p>
+          <div class="tvf-col-links">
+            <a href="#"><span>Brand Growth</span><span>Brand Growth</span></a>
+            <a href="#"><span>Paid Media</span><span>Paid Media</span></a>
+            <a href="#"><span>Shopify Builds</span><span>Shopify Builds</span></a>
+            <a href="#"><span>AI Strategy</span><span>AI Strategy</span></a>
+          </div>
         </div>
       </div>
-      <!-- Other Pages -->
-      <div class="tvf-col">
-        <p class="tvf-col-title">Other Pages</p>
-        <div class="tvf-col-links">
-          <a href="#"><span>Privacy Policy</span><span>Privacy Policy</span></a>
-          <a href="#"><span>Terms &amp; Conditions</span><span>Terms &amp; Conditions</span></a>
-          <a href="#"><span>Cookie Policy</span><span>Cookie Policy</span></a>
+      <!-- pair 2 -->
+      <div class="tvf-pair">
+        <div class="tvf-col tvf-anim" style="animation-delay:300ms">
+          <p class="tvf-col-title">Resources</p>
+          <div class="tvf-col-links">
+            <a href="#"><span>Case Studies</span><span>Case Studies</span></a>
+            <a href="#"><span>Blog</span><span>Blog</span></a>
+            <a href="#tv-faq"><span>FAQ</span><span>FAQ</span></a>
+          </div>
         </div>
-      </div>
-      <!-- Contact Details -->
-      <div class="tvf-col">
-        <p class="tvf-col-title">Contact Details</p>
-        <div class="tvf-col-links">
-          <span>King Fahd Road, Riyadh<br>Saudi Arabia 11564</span>
-          <a href="mailto:hello@techvenchure.com">hello@techvenchure.com</a>
-          <a href="tel:+966500000000">+966 50 000 0000</a>
+        <div class="tvf-col tvf-anim" style="animation-delay:400ms">
+          <p class="tvf-col-title">Company</p>
+          <div class="tvf-col-links">
+            <a href="#"><span>Our Story</span><span>Our Story</span></a>
+            <a href="#"><span>Privacy Policy</span><span>Privacy Policy</span></a>
+            <a href="#"><span>Terms of Service</span><span>Terms of Service</span></a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- hidden fire button kept so JS doesn't error -->
+  <!-- bottom copyright bar -->
+  <div id="tvf-bottom" class="tvf-anim" style="animation-delay:500ms">
+    <p id="tvf-copy">&copy; 2026 Tech Venchure. Built for brand excellence.</p>
+  </div>
+
+  <!-- stubs for flame JS -->
+  <button id="tvf-btn" aria-hidden="true" tabindex="-1" style="display:none">
+    <canvas id="tvf-fire-canvas"></canvas>
+    <div id="tvf-spinner"></div>
+    <span id="tvf-btn-label"></span>
+  </button>
+  <div id="tvf-success" style="display:none" aria-live="polite"></div>
+  <form id="tvf-form" style="display:none" novalidate>
+    <input id="tvf-input" type="email">
+  </form>
+
+  <script>
+  // Trigger fade-in-up on all .tvf-anim elements when footer scrolls into view
+  (function(){
+    var els = document.querySelectorAll('.tvf-anim');
+    if (!els.length) return;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('tvf-in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    els.forEach(function(el){ io.observe(el); });
+  }());
+  </script>
   <button id="tvf-btn" aria-hidden="true" tabindex="-1" style="display:none">
     <canvas id="tvf-fire-canvas"></canvas>
     <div id="tvf-spinner"></div>
