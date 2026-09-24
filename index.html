@@ -394,7 +394,8 @@
 <!-- ── Works Wheel ── -->
 <section id="tv-ww">
   <style>
-    #tv-ww{background:#000;position:relative;height:100vh;overflow:hidden;user-select:none}
+    #tv-ww{position:relative;height:600vh;background:#000}
+    #tvww-sticky{position:sticky;top:0;height:100vh;overflow:hidden;user-select:none}
     #tvww-stage{position:absolute;inset:0;cursor:grab;outline:none;touch-action:pan-x}
     #tvww-stage:active{cursor:grabbing}
     #tvww-wheel{position:absolute;top:50%;left:50%;transform-style:preserve-3d}
@@ -410,12 +411,14 @@
     #tvww-index button:hover{color:rgba(255,255,255,.8)}
     #tvww-index button.tvww-active{color:#fff;font-family:"PP Neue Montreal Medium",sans-serif}
   </style>
-  <div id="tvww-stage" tabindex="0" role="listbox" aria-label="Our Work">
-    <div id="tvww-wheel"></div>
+  <div id="tvww-sticky">
+    <div id="tvww-stage" tabindex="0" role="listbox" aria-label="Our Work">
+      <div id="tvww-wheel"></div>
+    </div>
+    <div id="tvww-label">Our Work</div>
+    <div id="tvww-title"></div>
+    <ol id="tvww-index"></ol>
   </div>
-  <div id="tvww-label">Our Work</div>
-  <div id="tvww-title"></div>
-  <ol id="tvww-index"></ol>
 </section>
 
 <!-- ── Our Services ── -->
@@ -806,10 +809,10 @@ var circle = document.getElementById('circleHero');
     if (stats) io.observe(stats);
   }());
 
-  // ── Works Wheel ──
+  // ── Works Wheel (scroll-driven) ──
   (function() {
     var CARD_H=0.38,CARD_MAX_W=0.34,CARD_RATIO=1.45,STEP=40,DRUM=2.22,LENS=2.7,RING_R=1.14;
-    var BOW=1.82,TITLE_F=0.124,INDEX_F=0.04,CULL=1.6,WHEEL_UNITS=900,DRAG_UNITS=420,SETTLE=140,EASE=0.12;
+    var BOW=1.82,TITLE_F=0.124,INDEX_F=0.04,CULL=1.6,DRAG_UNITS=420,EASE=0.1;
     var items=[
       {title:'Pebble Life',image:'assets/proj-pebble.jpg',href:'#'},
       {title:'Fane Barber',image:'assets/proj-fane.png',href:'#'},
@@ -825,23 +828,23 @@ var circle = document.getElementById('circleHero');
     var rad=function(d){return d*Math.PI/180;};
     var bowAt=function(dDeg,bow){return -bow*(1-Math.cos(rad(dDeg)));};
     function place(rDeg,dDeg,rR,dR,bow,m){
-      return 'translateX('+( m*bowAt(dDeg,bow))+'px)'+
+      return 'translateX('+(m*bowAt(dDeg,bow))+'px)'+
         ' rotateZ('+((1-m)*rDeg)+'deg) translateY('+(-(1-m)*rR)+'px)'+
         ' rotateX('+(m*dDeg)+'deg) translateZ('+(m*dR)+'px)';
     }
     var section=document.getElementById('tv-ww');
+    var sticky=document.getElementById('tvww-sticky');
     var stage=document.getElementById('tvww-stage');
     var wheelEl=document.getElementById('tvww-wheel');
     var labelEl=document.getElementById('tvww-label');
     var titleEl=document.getElementById('tvww-title');
     var indexList=document.getElementById('tvww-index');
     var count=items.length,last=count-1;
-    var turn=0,target=0,active=0,raf=0,settling=0;
-    var W=0,H=0,metrics=null;
-    var dragY=null;
+    var turn=0,target=0,active=0,raf=0;
+    var W=0,H=0,metrics=null,dragY=null;
     var reduced=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-    var cardEls=items.map(function(item,i){
+    var cardEls=items.map(function(item){
       var el=document.createElement('a');
       el.href=item.href||'#'; el.className='tvww-card';
       el.setAttribute('role','option'); el.setAttribute('aria-selected','false');
@@ -857,7 +860,12 @@ var circle = document.getElementById('circleHero');
     var indexBtns=items.map(function(item,i){
       var li=document.createElement('li');
       var btn=document.createElement('button'); btn.type='button'; btn.textContent=item.title;
-      btn.addEventListener('click',function(){goTo(i+1);});
+      // Clicking an index button scrolls the page to that item's position
+      btn.addEventListener('click',function(){
+        var travel=section.offsetHeight-window.innerHeight;
+        var dest=section.offsetTop+(i+1)/(last+1)*travel;
+        window.scrollTo({top:dest,behavior:'smooth'});
+      });
       li.appendChild(btn); indexList.appendChild(li);
       return btn;
     });
@@ -869,13 +877,21 @@ var circle = document.getElementById('circleHero');
       return{cardW:cW,cardH:cH,ringR:rR,ringScale:rS,drumR:dR,bow:cH*BOW,depth:cH*LENS,title:cH*TITLE_F,index:cH*INDEX_F};
     }
 
+    function scrollTarget(){
+      // Map scroll position within section to turn range 0..(last+1)
+      var scrolled=Math.max(0,-section.getBoundingClientRect().top);
+      var travel=Math.max(1,section.offsetHeight-window.innerHeight);
+      return clamp(scrolled/travel*(last+1),0,last+1);
+    }
+
     function schedule(){if(!raf)raf=requestAnimationFrame(draw);}
-    function goTo(n){target=clamp(n,0,last+1);schedule();}
 
     function draw(){
       raf=0;
-      var gap=target-turn;
-      if(Math.abs(gap)<0.0005)turn=target; else turn+=gap*(reduced?1:EASE);
+      var st=scrollTarget();
+      // Ease toward scroll-driven target (drag offsets fade as scroll takes over)
+      var gap=st-turn;
+      if(Math.abs(gap)<0.001)turn=st; else turn+=(st-turn)*(reduced?1:EASE);
       var m=clamp(turn,0,1),pos=Math.max(0,turn-1);
       wheelEl.style.transform='translateZ('+(-m*metrics.drumR)+'px)';
       for(var i=0;i<count;i++){
@@ -894,11 +910,11 @@ var circle = document.getElementById('circleHero');
         titleEl.textContent=items[active].title;
         indexBtns.forEach(function(btn,i){btn.classList.toggle('tvww-active',i===active);});
       }
-      if(Math.abs(target-turn)>0.0005)raf=requestAnimationFrame(draw);
+      if(Math.abs(st-turn)>0.001)raf=requestAnimationFrame(draw);
     }
 
     function resize(){
-      W=section.clientWidth; H=section.clientHeight;
+      W=sticky.clientWidth; H=sticky.clientHeight;
       if(!W||!H)return;
       metrics=getMetrics();
       stage.style.perspective=metrics.depth+'px';
@@ -912,26 +928,26 @@ var circle = document.getElementById('circleHero');
       schedule();
     }
 
-    // Global wheel: intercept whenever the section fills the viewport,
-    // regardless of which element the cursor is over.
-    window.addEventListener('wheel',function(e){
-      var r=section.getBoundingClientRect();
-      var inView=r.top<=1&&r.bottom>=window.innerHeight-1;
-      if(!inView)return;
-      var n=target+e.deltaY/WHEEL_UNITS;
-      // At the boundaries let the page scroll naturally so the user can leave.
-      if(n>0&&n<last+1){e.preventDefault();goTo(n);clearTimeout(settling);settling=setTimeout(function(){goTo(Math.round(target));},SETTLE);}
-    },{passive:false});
+    // Drag for fine-grained scrubbing (translates to page scroll so it stays in sync)
     stage.addEventListener('pointerdown',function(e){dragY=e.clientY;stage.setPointerCapture(e.pointerId);});
-    stage.addEventListener('pointermove',function(e){if(dragY===null)return;goTo(target+(dragY-e.clientY)/DRAG_UNITS);dragY=e.clientY;});
-    stage.addEventListener('pointerup',function(){dragY=null;if(target>1)goTo(Math.round(target));});
-    stage.addEventListener('keydown',function(e){
-      if(e.key==='ArrowDown')goTo(Math.round(target)+1);
-      else if(e.key==='ArrowUp')goTo(Math.round(target)-1);
-      else return;
-      e.preventDefault();
+    stage.addEventListener('pointermove',function(e){
+      if(dragY===null)return;
+      var dy=dragY-e.clientY;
+      var travel=section.offsetHeight-window.innerHeight;
+      window.scrollBy(0,dy*(travel/window.innerHeight)/DRAG_UNITS*200);
+      dragY=e.clientY;
     });
-    var ro=new ResizeObserver(resize); ro.observe(section);
+    stage.addEventListener('pointerup',function(){dragY=null;});
+    stage.addEventListener('keydown',function(e){
+      if(e.key==='ArrowDown'||e.key==='ArrowUp'){
+        var travel=section.offsetHeight-window.innerHeight;
+        window.scrollBy(0,(e.key==='ArrowDown'?1:-1)*travel/(last+1));
+        e.preventDefault();
+      }
+    });
+
+    window.addEventListener('scroll',schedule,{passive:true});
+    var ro=new ResizeObserver(resize); ro.observe(sticky);
     resize();
   }());
 
