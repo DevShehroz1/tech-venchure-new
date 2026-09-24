@@ -91,15 +91,16 @@
       cursor: pointer; background: none; border: none; padding: 4px; flex-shrink: 0; z-index: 2;
     }
     .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: rgba(255,255,255,0.8); border-radius: 2px; transition: transform 0.25s, opacity 0.25s; }
-    .btn-mobile-cta {
-      display: none; align-items: center;
-      color: rgba(20,15,10,0.85); font-family: "PP Supply Mono Regular", monospace;
-      font-size: 11px; font-weight: 400; letter-spacing: -0.01em; text-transform: uppercase;
-      border: none; border-radius: 8px; padding: 8px 12px; background: #EDE7DF;
-      text-decoration: none; white-space: nowrap; flex-shrink: 0; z-index: 2;
+    .btn-mobile-cta { display: none; }
+    .btn-mobile-icon {
+      display: none; align-items: center; justify-content: center;
+      width: 38px; height: 38px; border-radius: 10px;
+      background: rgba(237,231,223,0.15); border: 1px solid rgba(255,255,255,0.18);
+      color: #fff; text-decoration: none; flex-shrink: 0; z-index: 2;
       transition: background .2s;
     }
-    .btn-mobile-cta:hover { background: #ddd7cf; }
+    .btn-mobile-icon:hover { background: rgba(237,231,223,0.28); }
+    .btn-mobile-icon svg { width: 16px; height: 16px; }
     /* Left drawer */
     .nav-overlay {
       display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
@@ -127,7 +128,7 @@
       .nav-links { display: none; }
       .nav-actions { display: none; }
       .nav-hamburger { display: flex; }
-      .btn-mobile-cta { display: inline-flex; }
+      .btn-mobile-icon { display: inline-flex; }
       .nav-logo { position: absolute; left: 50%; transform: translateX(-50%); }
       .nav { justify-content: space-between; }
     }
@@ -144,9 +145,9 @@
     .tvh-content{width:100%;max-width:75em}
     .tvh-grid{display:grid;grid-template-columns:1fr;gap:0;padding:0 0.5em}
     .tvh-block{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:2em;position:relative;z-index:50}
-    .tvh-eyebrow{font-family:"PP Neue Montreal Regular","PP Neue Montreal Regular Placeholder",sans-serif;font-size:.85em;color:rgb(153,153,153);letter-spacing:.06em;display:flex;align-items:center;gap:.5em;margin:0}
+    .tvh-eyebrow{font-family:"PP Neue Montreal Regular","PP Neue Montreal Regular Placeholder",sans-serif;font-size:.85em;color:#fff;letter-spacing:.06em;display:flex;align-items:center;gap:.5em;margin:0}
     .tvh-heading{font-family:"PP Neue Montreal Regular","PP Neue Montreal Regular Placeholder",sans-serif;font-size:5em;font-weight:500;line-height:1em;margin:0;color:#fafafa;overflow:visible}
-    .tvh-para{font-family:"PP Neue Montreal Regular","PP Neue Montreal Regular Placeholder",sans-serif;font-size:1.05em;line-height:1.65em;letter-spacing:.02em;color:#d0d0d0;max-width:26em;margin:0}
+    .tvh-para{font-family:"PP Neue Montreal Regular","PP Neue Montreal Regular Placeholder",sans-serif;font-size:1.05em;line-height:1.65em;letter-spacing:.02em;color:#fff;max-width:26em;margin:0}
     .tvh-ctas{display:flex;gap:12px;flex-wrap:wrap}
     .tvh-btn{display:inline-flex;align-items:center;gap:.45em;font-family:"PP Neue Montreal Regular","PP Neue Montreal Regular Placeholder",sans-serif;font-size:.88em;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:.85em 1.5em;border-radius:10px;text-decoration:none;line-height:1.2em;cursor:pointer;background:rgba(8,8,8,.55);color:#fff;border:1px solid rgba(255,255,255,.32);transition:background .2s,border-color .2s}
     .tvh-btn:hover{background:rgba(30,30,30,.75);border-color:rgba(255,255,255,.6)}
@@ -323,6 +324,11 @@
     </button>
     <a class="btn-estimate" href="#" data-magnetic>GET AN ESTIMATE &nbsp;&#8594;</a>
   </div>
+  <a class="btn-mobile-icon" href="mailto:hello@techvenchure.com" aria-label="Contact us">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+    </svg>
+  </a>
 </nav>
 
 <div class="nav-overlay" id="navOverlay"></div>
@@ -1761,6 +1767,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   var targets = document.querySelectorAll('.tvh-heading, #tvfaq-heading, .tvt-heading');
   targets.forEach(function(el){
+    if (el.classList.contains('tvh-heading') && window.innerWidth < 768) return;
     splitLetters(el);
     var io = new IntersectionObserver(function(entries){
       if(entries[0].isIntersecting){
