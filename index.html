@@ -6,6 +6,7 @@
   <title>Tech Venchure — AI-Powered Marketing &amp; Brand Growth</title>
   <link rel="icon" type="image/png" href="/assets/tv-favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <style>
     @font-face { font-family: "PP Neue Montreal Regular"; src: url("https://framerusercontent.com/assets/Vgooyn5UgzxUXCAvebdulHCfXA.woff2") format("woff2"); font-display: swap; font-weight: 400; }
     @font-face { font-family: "PP Neue Montreal Medium"; src: url("https://framerusercontent.com/assets/gFY5sT08OJzaVKejDc8tZ3kRgFo.woff2") format("woff2"); font-display: swap; font-weight: 500; }
@@ -16,7 +17,18 @@
       min-height: 100vh;
       font-family: "PP Neue Montreal Regular", sans-serif;
       -webkit-font-smoothing: antialiased;
+      cursor: none;
     }
+    a, button, [data-magnetic] { cursor: none; }
+    #mc-cursor {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      pointer-events: none; will-change: transform;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #fff; mix-blend-mode: exclusion;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+    }
+    @media (any-pointer: coarse) { body, a, button, [data-magnetic] { cursor: auto; } #mc-cursor { display: none; } }
 
     .nav {
       position: fixed;
@@ -255,6 +267,7 @@
   </style>
 </head>
 <body>
+<div id="mc-cursor"></div>
 
 <nav class="nav" id="nav">
   <a class="nav-logo" href="/">
@@ -268,13 +281,13 @@
     <li><a href="#">Store</a></li>
   </ul>
   <div class="nav-actions">
-    <button class="btn-lang" aria-label="Language">
+    <button class="btn-lang" aria-label="Language" data-magnetic>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
       </svg>
       EN
     </button>
-    <a class="btn-estimate" href="#">GET AN ESTIMATE &nbsp;&#8594;</a>
+    <a class="btn-estimate" href="#" data-magnetic>GET AN ESTIMATE &nbsp;&#8594;</a>
     <button class="nav-hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -302,8 +315,8 @@
             <h1 class="tvh-heading">Experience the<br>Future</h1>
             <p class="tvh-para">AI-Powered Marketing, Your Pathway to Success in the Digital Age. We build brands and accelerate startups in MENA.</p>
             <div class="tvh-ctas">
-              <a href="index.html#portfolio" class="tvh-btn">VIEW PROJECTS &rarr;</a>
-              <a href="#svg9928795503" class="tvh-btn tvh-btn-cta">GET A QUOTE &rarr;</a>
+              <a href="index.html#portfolio" class="tvh-btn" data-magnetic>VIEW PROJECTS &rarr;</a>
+              <a href="#svg9928795503" class="tvh-btn tvh-btn-cta" data-magnetic>GET A QUOTE &rarr;</a>
             </div>
             <div class="tvh-stats" id="tvhStats">
               <div class="tvh-stat">
@@ -1168,6 +1181,67 @@ var circle = document.getElementById('circleHero');
     window.visualViewport&&window.visualViewport.addEventListener('resize',onResize);
     raf=requestAnimationFrame(frame);
   }());
+</script>
+
+<script>
+(function(){
+  if(window.matchMedia('(any-pointer: coarse)').matches) return;
+  var cur = document.getElementById('mc-cursor');
+  if(!cur || typeof gsap === 'undefined') return;
+
+  var mouse = {x: window.innerWidth/2, y: window.innerHeight/2};
+  var pos   = {x: mouse.x, y: mouse.y};
+  var magnetEl = null, magnetBounds = null;
+  var PULL = 0.38; // how far element shifts toward cursor (0-1)
+  var SPEED_DEFAULT = 0.14;
+  var SPEED_SNAP    = 0.22;
+
+  gsap.set(cur, {opacity:0, scale:1});
+
+  document.addEventListener('pointermove', function(e){
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+
+  // magnetic elements
+  var magnets = [];
+  function collectMagnets(){
+    magnets = Array.from(document.querySelectorAll('[data-magnetic]'));
+    magnets.forEach(function(el){
+      el.addEventListener('pointerenter', function(){
+        magnetEl = el;
+        magnetBounds = el.getBoundingClientRect();
+        gsap.to(cur, {scale:2.2, duration:0.3, ease:'power2.out'});
+      });
+      el.addEventListener('pointerleave', function(){
+        magnetEl = null;
+        magnetBounds = null;
+        gsap.to(el, {x:0, y:0, duration:0.5, ease:'elastic.out(1,0.4)'});
+        gsap.to(cur, {scale:1, duration:0.3, ease:'power2.out'});
+      });
+    });
+  }
+  collectMagnets();
+
+  gsap.ticker.add(function(){
+    // refresh bounds each frame when snapping (handles scroll)
+    if(magnetEl) magnetBounds = magnetEl.getBoundingClientRect();
+
+    var speed = magnetEl ? SPEED_SNAP : SPEED_DEFAULT;
+    pos.x += (mouse.x - pos.x) * speed;
+    pos.y += (mouse.y - pos.y) * speed;
+
+    gsap.set(cur, {x: pos.x, y: pos.y, opacity:1});
+
+    if(magnetEl && magnetBounds){
+      var cx = magnetBounds.left + magnetBounds.width  * 0.5;
+      var cy = magnetBounds.top  + magnetBounds.height * 0.5;
+      var dx = (mouse.x - cx) * PULL;
+      var dy = (mouse.y - cy) * PULL;
+      gsap.set(magnetEl, {x: dx, y: dy});
+    }
+  });
+}());
 </script>
 
 </body>
