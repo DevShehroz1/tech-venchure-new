@@ -501,6 +501,11 @@
     #tvww-index button{background:none;border:none;color:inherit;cursor:pointer;font-family:"PP Neue Montreal Regular",sans-serif;transition:color .2s;padding:0;outline:none}
     #tvww-index button:hover{color:rgba(255,255,255,.8)}
     #tvww-index button.tvww-active{color:#fff;font-family:"PP Neue Montreal Medium",sans-serif}
+    @media(max-width:767px){
+      #tv-ww{height:350vh;padding-top:0}
+      #tvww-index{display:none}
+      #tvww-title{left:5%;width:75%;font-size:18px !important}
+    }
   </style>
   <div id="tvww-sticky">
     <div id="tvww-stage" tabindex="0" role="listbox" aria-label="Our Work">
@@ -1447,10 +1452,12 @@ var circle = document.getElementById('circleHero');
     });
 
     function getMetrics(){
-      var cW=Math.min(H*CARD_H*CARD_RATIO,W*CARD_MAX_W),cH=cW/CARD_RATIO;
-      var dR=cH*DRUM,rR=cH*RING_R;
+      var mob=W<768;
+      var maxW=mob?0.44:CARD_MAX_W, rR_f=mob?1.5:RING_R, tF=mob?0.2:TITLE_F;
+      var cW=Math.min(H*CARD_H*CARD_RATIO,W*maxW),cH=cW/CARD_RATIO;
+      var dR=cH*DRUM,rR=cH*rR_f;
       var rS=count?clamp((2*Math.PI*rR/count*0.82)/(cW||1),0.16,1):1;
-      return{cardW:cW,cardH:cH,ringR:rR,ringScale:rS,drumR:dR,bow:cH*BOW,depth:cH*LENS,title:cH*TITLE_F,index:cH*INDEX_F};
+      return{cardW:cW,cardH:cH,ringR:rR,ringScale:rS,drumR:dR,bow:cH*BOW,depth:cH*LENS,title:cH*tF,index:cH*INDEX_F};
     }
 
     function scrollTarget(){
